@@ -1,4 +1,5 @@
-<app-user-form> </app-user-form>
+<!-- escucho el evento emitido por el componente hijo y ejecuto onUserSubmitted pasando el evento como como parametro-->
+<app-user-form (userSubmitted)="onUserSubmitted($event)"> </app-user-form>
 
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 

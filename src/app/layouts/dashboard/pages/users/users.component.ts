@@ -34,4 +34,11 @@ export class UsersComponent {
       role: 'user',
     },
 ];
+
+// cuando reciba el formulario de usuario
+onUserSubmitted(ev: User): void {
+  // creamos un nuevo array para origen de la tabla de angular material
+  this.dataSource = [...this.dataSource, { ...ev, id: new Date().getTime() } ];
+}
+
 }
