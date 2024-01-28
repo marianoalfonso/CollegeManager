@@ -1,0 +1,37 @@
+import { Component } from '@angular/core';
+import { User } from './models';
+
+@Component({
+  selector: 'app-users',
+  templateUrl: './users.component.html',
+  styleUrl: './users.component.scss'
+})
+export class UsersComponent {
+  displayedColumns: string[] = ['id', 'fullName', 'email', 'role'];
+  dataSource: User[] = [
+    {
+      id: 1,
+      firstName: 'Roger',
+      lastName: 'Federer',
+      email: 'roger.federer@gmail.com',
+      password: 'test1234',
+      role: 'admin',
+    },
+    {
+      id: 2,
+      firstName: 'Luciana',
+      lastName: 'Aimar',
+      email: 'luciana.aimar@gmail.com',
+      password: 'test1234',
+      role: 'user',
+    },
+    {
+      id: 3,
+      firstName: 'Emanuel',
+      lastName: 'Ginobili',
+      email: 'emanuel.ginobili@gmail.com',
+      password: 'test1234',
+      role: 'user',
+    },
+];
+}
