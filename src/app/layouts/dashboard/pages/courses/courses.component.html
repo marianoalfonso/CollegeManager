@@ -1,0 +1,28 @@
+<form [formGroup]="courseForm">
+    <mat-form-field>
+        <mat-label>categoria del curso</mat-label>
+        <input formControlName="category" matInput type="text">
+        <button (click)="onAddProduct()" matSuffix mat-icon-button>
+            <mat-icon>add</mat-icon>
+        </button>
+    </mat-form-field>
+
+    <div class="my-5">
+        <hr />
+    </div>
+
+
+    @for (course of coursesControl.controls; track $index) {
+    <mat-form-field>
+        <mat-label>nombre del curso</mat-label>
+        <input [formControl]="getControl($index)" matInput />
+        <button (click)="deleteControl($index)" mat-icon-button matSuffix>
+            <mat-icon>delete</mat-icon>
+        </button>
+    </mat-form-field>
+    }
+
+
+</form>
+
+<pre>{{ courseForm.value | json }}</pre>
