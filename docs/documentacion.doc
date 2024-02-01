@@ -1,0 +1,8 @@
+pipes 
+personalizados
+.se une el apellido y nombre del usuario
+    {{ element | fullName: 'nombrePropio' }}
+.se agrega la fecha y hora en el componente NAV
+
+directivas
+

@@ -11,6 +11,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 
 import { ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from '../../../../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatSelectModule,
     MatButtonModule,
     ReactiveFormsModule,
+    // importo los pipe personalizados
+    SharedModule,
   ],
   exports: [
     StudentsComponent,

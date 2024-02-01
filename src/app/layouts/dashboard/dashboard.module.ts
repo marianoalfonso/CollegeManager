@@ -30,4 +30,4 @@ import { CoursesModule } from './pages/courses/courses.module';
     DashboardComponent,
   ]
 })
-export class DashboardModule { }
+export class DashboardModule {}

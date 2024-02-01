@@ -24,14 +24,17 @@
             <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
                 <mat-icon>share</mat-icon>
             </button>
+
+            {{ today | date: 'short'}}
+            
         </mat-toolbar>
         <!-- toolbar en el contenido del dashboard (end)-->
 
         <!-- agrego un padding de la libreria primeflex -->
         <div class="p-3">
             <!-- <app-users></app-users> -->
-            <!-- <app-students></app-students> -->
-            <app-courses></app-courses>
+            <app-students></app-students>
+            <!-- <app-courses></app-courses> -->
         </div>
 
     </div>
