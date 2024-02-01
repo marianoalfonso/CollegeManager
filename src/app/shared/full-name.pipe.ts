@@ -14,7 +14,7 @@ export class FullNamePipe implements PipeTransform {
     if (mode === 'nombrePropio') {
       //si es nombre propio, capitaliza el apellido y nombre y agrega una coma y espacio
       //si es una cadena, agrega un espacio
-      return value.lastName[0].toUpperCase() + value.lastName.substring(1) + ', ' + value.lastName[0].toUpperCase() + value.lastName.substring(1)
+      return value.lastName[0].toUpperCase() + value.lastName.substring(1) + ', ' + value.firstName[0].toUpperCase() + value.firstName.substring(1)
     } else {
       return value.lastName + ' ' + value.firstName
     }

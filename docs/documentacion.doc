@@ -4,5 +4,7 @@ personalizados
     {{ element | fullName: 'nombrePropio' }}
 .se agrega la fecha y hora en el componente NAV
 
-directivas
+.ver si da tiempo a crear un pipe para calcular edad
 
+
+directivas

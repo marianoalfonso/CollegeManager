@@ -15,7 +15,8 @@
     <!-- Name Column -->
     <ng-container matColumnDef="fullName">
       <th mat-header-cell *matHeaderCellDef> name </th>
-      <td mat-cell *matCellDef="let element"> {{ element.lastName + ", " + element.firstName}} </td>
+      <!-- al agregar el parametro en el input de la directiva, puede agregarse como elemento del html (weight) -->
+      <td appResaltado mat-cell *matCellDef="let element"> {{ element | fullName: 'nombrePropio' }} </td>
     </ng-container>
   
     <!-- Weight Column -->
