@@ -10,6 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { UsersModule } from './pages/users/users.module';
 import { StudentsModule } from './pages/students/students.module';
 import { CoursesModule } from './pages/courses/courses.module';
+import { RxjsExampleModule } from './pages/rxjs-example/rxjs-example.module';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { CoursesModule } from './pages/courses/courses.module';
     MatToolbarModule,
     MatIconModule,
     CoursesModule,
+    RxjsExampleModule,
   ],
   exports: [
     DashboardComponent,

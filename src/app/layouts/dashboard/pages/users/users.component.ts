@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { UsersService } from '../../../../core/services/users.service';
 import { User } from '../../../models';
 
 @Component({
@@ -7,6 +8,13 @@ import { User } from '../../../models';
   styleUrl: './users.component.scss'
 })
 export class UsersComponent {
+
+  // realizamos la inyeccion por dependencias e inyectamos el servicio
+  constructor(private userService: UsersService) {
+    
+  }
+
+
   displayedColumns: string[] = ['id', 'fullName', 'email', 'role'];
   dataSource: User[] = [
     {

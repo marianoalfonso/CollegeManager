@@ -8,6 +8,7 @@ import { DashboardModule } from './layouts/dashboard/dashboard.module';
 
 import es from '@angular/common/locales/es-AR';
 import { registerLocaleData } from '@angular/common';
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 
 // referenciamos la funcion y le pasamos la importacion de la region
 registerLocaleData(es);
@@ -27,7 +28,13 @@ registerLocaleData(es);
       // seteamos los idiomas
       provide: LOCALE_ID,
       useValue: 'es-AR',
-    }
+    },
+    {
+      provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
+      useValue: {
+        appearance: 'outline',
+      }
+    },
   ],
   bootstrap: [AppComponent]
 })

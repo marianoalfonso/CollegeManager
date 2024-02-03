@@ -12,6 +12,9 @@ import { MatButtonModule } from '@angular/material/button';
 
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../../../../shared/shared.module';
+import { UsersService } from '../../../../core/services/users.service';
+import { UsersMockService } from '../../../../core/services/users-mock.service';
+import { MY_USER_TOKEN } from '../../../../core/injection-tokens';
 
 @NgModule({
   declarations: [
@@ -31,6 +34,21 @@ import { SharedModule } from '../../../../shared/shared.module';
   ],
   exports: [
     UsersComponent,
+  ],
+  providers: [
+    // referencio la clase del tipo servicio
+    UsersService,
+    {
+      provide: MY_USER_TOKEN,
+      useValue: 'this is a valid token',
+    },
+
+    // {
+    //   // aca indico que cuando se provea el UsersService,
+    //   // use la clase UserMockService
+    //   provide: UsersService,
+    //   useClass: UsersMockService,
+    // }
   ]
 })
 export class UsersModule { }
