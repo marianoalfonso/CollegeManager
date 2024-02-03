@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Observable, Subscriber, Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 
 
 @Component({
@@ -12,7 +12,11 @@ export class RxjsExampleComponent {
   loading: boolean = false;
   users: string[] = [];
 
-  getUsersSuscription:? Subscription;
+  // creamos una referencia a la suscripcion para poder controlar
+  // que no se creen multiples suscripciones o susc. inesperadas
+  // es del tipo undefined
+  // getUsersSuscription: Subscription | undefined; //forma 1 de declarar undefined
+  getUsersSuscription?: Subscription;            //forma 2 de declarar undefined
 
   constructor() {
     console.log('se instancio el componente');
@@ -30,6 +34,10 @@ export class RxjsExampleComponent {
   }
 
   getUsersFromObservable(): void {
+
+    // verificamos si existe alguna suscripcion, y si es asi lo desuscribimos
+    this.getUsersSuscription?.unsubscribe();
+
     // perguntamos si getUsersSuscription tiene algun valor, borramos la suscricion
     this.getUsersSuscription?.unsubscribe();
     this.loading = true;
@@ -39,6 +47,8 @@ export class RxjsExampleComponent {
         Subscriber.complete(); //si no marco el suscriber como completo, queda emitiendo indefinidamente 
       }, 5000);
     });
+
+    // asignamos la suscripcion a la variable
     this.getUsersSuscription = getUsers$.subscribe({
       // el observable emite valores correctamente      
       next: (respuesta) => {

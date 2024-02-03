@@ -11,6 +11,7 @@ import { UsersModule } from './pages/users/users.module';
 import { StudentsModule } from './pages/students/students.module';
 import { CoursesModule } from './pages/courses/courses.module';
 import { RxjsExampleModule } from './pages/rxjs-example/rxjs-example.module';
+import { RxjsIntroduccionModule } from './pages/rxjs-introduccion/rxjs-introduccion.module';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { RxjsExampleModule } from './pages/rxjs-example/rxjs-example.module';
     MatIconModule,
     CoursesModule,
     RxjsExampleModule,
+    RxjsIntroduccionModule,
   ],
   exports: [
     DashboardComponent,
