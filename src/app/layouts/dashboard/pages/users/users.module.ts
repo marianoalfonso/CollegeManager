@@ -9,6 +9,8 @@ import { MatFormFieldModule } from '@angular/material/form-field'; //envoltura d
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+
 
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../../../../shared/shared.module';
@@ -29,6 +31,8 @@ import { MY_USER_TOKEN } from '../../../../core/injection-tokens';
     MatInputModule,
     MatSelectModule,
     MatButtonModule,
+    MatIconModule,
+
     ReactiveFormsModule,
     SharedModule,
   ],

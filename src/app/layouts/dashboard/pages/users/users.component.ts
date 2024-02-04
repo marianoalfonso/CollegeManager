@@ -1,52 +1,93 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { UsersService } from '../../../../core/services/users.service';
-import { User } from '../../../models';
+import { Role, User } from '../../../models';
+import { LoadingService } from '../../../../core/services/loading.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
   styleUrl: './users.component.scss'
 })
-export class UsersComponent {
 
-  // realizamos la inyeccion por dependencias e inyectamos el servicio
-  constructor(private userService: UsersService) {
-    
+// los ciclos de vida en angular se implementan en el siguiente orden:
+// .constructor
+// .onchange
+// .oninit
+export class UsersComponent implements OnInit {
+
+  // realizamos la inyeccion por dependencias e inyectamos el servicio user.service.ts
+  constructor(
+    private userService: UsersService,
+    private loadingService: LoadingService) { }
+
+
+
+  displayedColumns: string[] = ['id', 'fullName', 'email', 'role', 'actions'];
+  dataSource: User[] = [];
+  // roles: Role[] = [];
+  roles: string[] = [];
+
+
+  ngOnInit(): void {
+    this.getPageData();
   }
 
+  getPageData(): void {
+    this.loadingService.setIsLoading(true);
 
-  displayedColumns: string[] = ['id', 'fullName', 'email', 'role'];
-  dataSource: User[] = [
-    {
-      id: 1,
-      firstName: 'Roger',
-      lastName: 'Federer',
-      email: 'roger.federer@gmail.com',
-      password: 'test1234',
-      role: 'admin',
-    },
-    {
-      id: 2,
-      firstName: 'Luciana',
-      lastName: 'Aimar',
-      email: 'luciana.aimar@gmail.com',
-      password: 'test1234',
-      role: 'user',
-    },
-    {
-      id: 3,
-      firstName: 'Emanuel',
-      lastName: 'Ginobili',
-      email: 'emanuel.ginobili@gmail.com',
-      password: 'test1234',
-      role: 'user',
-    },
-];
+    // forkJoin recibe un array de observables
+    forkJoin([
+      this.userService.getRoles(),
+      this.userService.getUsers(),
+    ]).subscribe({
+      // el value recibe un array de arrays,
+      // donde el primer elemento es el array de Roles y el segundo el de Users 
+      next: (value) => {
+        this.roles = value[0];
+        this.dataSource = value[1];
+      },
+      error: (err) => [],
+      complete: () => this.loadingService.setIsLoading(false)
+    })
 
-// cuando reciba el formulario de usuario
-onUserSubmitted(ev: User): void {
-  // creamos un nuevo array para origen de la tabla de angular material
-  this.dataSource = [...this.dataSource, { ...ev, id: new Date().getTime() }];
-}
+
+    // // obtengo los roles
+    // this.userService.getRoles().subscribe({
+    //   next: (roles) => this.roles = roles,
+    //   error: (err) => { },
+    // })
+
+    // // obtengo datos de usuarios
+    // this.userService.getUsers().subscribe({
+    //   next: (users) => this.dataSource = users,
+    //   error: (err) => { },
+    //   // complete: () => this.loadingService.setIsLoading(false)
+    // })
+
+  }
+
+  // cuando reciba el formulario de usuario
+  onUserSubmitted(ev: User): void {
+    // creamos un nuevo array para origen de la tabla de angular material
+    // this.dataSource = [...this.dataSource, { ...ev, id: new Date().getTime() }];
+    this.loadingService.setIsLoading(false);
+    this.userService.createUser({ ...ev, id: new Date().getTime() }).subscribe({
+      // ...users porque angular material necesita un nuevo array para el refresh
+      // de esta manera se dispara el ciclo de deteccion de cambios de a.material
+      next: (users) => this.dataSource = [...users], 
+      error: (err) => {},
+      complete: () => this.loadingService.setIsLoading(false)
+    });
+  }
+
+  onUserDeleted(ev: User): void {
+    this.loadingService.setIsLoading(true);
+    this.userService.deleteUser(ev.id).subscribe({
+      next: (users) => this.dataSource = [...users], 
+      error: (err) => {},
+      complete: () => this.loadingService.setIsLoading(false)
+    })
+  }
 
 }

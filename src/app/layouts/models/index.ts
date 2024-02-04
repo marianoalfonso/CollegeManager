@@ -14,3 +14,9 @@ export interface Student {
     email: string;
     birthDate: string;
 }
+
+export interface Role {
+    id: number;
+    name: string;
+    description: string;
+}
