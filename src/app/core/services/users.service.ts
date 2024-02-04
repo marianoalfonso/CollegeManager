@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Role, User } from '../../layouts/models';
-import { Observable, delay, of } from 'rxjs';
+import { Observable, delay, of, tap } from 'rxjs';
+import { AlertsService } from './alerts.service';
+import { FullNamePipe } from '../../shared/full-name.pipe';
 
 // let para poder borrar elementos
 let USERS_DB: User[] = [
@@ -59,7 +61,7 @@ const ROLES_DB: string[] = ['admin', 'user'];
 @Injectable()
 export class UsersService {
 
-  constructor() { 
+  constructor(private notifier: AlertsService) { 
     
   }
 
@@ -68,12 +70,12 @@ export class UsersService {
     console.log('users fetched from real DB');
     // {of} es la abreviatura para devolver rapidamente un observable
     // el pipe delay aplica una demora en la devolucion del observable
-    return of(USERS_DB).pipe(delay(1000));
+    return of(USERS_DB).pipe(delay(2000));
   }
 
   getRoles(): Observable<string[]> {
     console.log('roles fetched from real DB');
-    return of(ROLES_DB).pipe(delay(6000));
+    return of(ROLES_DB).pipe(delay(2000));
   }
 
   // agrego un usuario al array y devuelvo la funcion getUsers
@@ -82,9 +84,14 @@ export class UsersService {
     return this.getUsers(); 
   }
 
-  deleteUser(userID: number) {
+  deleteUser(payload: User) {
+    // recibo el objeto User completo para poder obtener el nombre
     // filtro y me quedo con los que sean diferentes al userID recibido
-    USERS_DB = USERS_DB.filter((user) => user.id !== userID);
-    return this.getUsers();
+    USERS_DB = USERS_DB.filter((user) => user.id !== payload.id);
+    // tap, con el pipe y el tap le indicamos que haga algo inmediatamente
+    // despues que el observable emita un valor
+    const mensaje = `usuario "${ payload.lastName }" eliminado correctamente`;
+    console.log(payload.lastName);
+    return this.getUsers().pipe(tap(() => this.notifier.showSuccess('usuarios', mensaje)));
   }
 }

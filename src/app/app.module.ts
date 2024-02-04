@@ -10,6 +10,8 @@ import es from '@angular/common/locales/es-AR';
 import { registerLocaleData } from '@angular/common';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+
 // referenciamos la funcion y le pasamos la importacion de la region
 registerLocaleData(es);
 
@@ -22,6 +24,7 @@ registerLocaleData(es);
     AppRoutingModule,
     BrowserAnimationsModule,
     DashboardModule,
+    MatProgressSpinnerModule,
   ],
   providers: [
     {

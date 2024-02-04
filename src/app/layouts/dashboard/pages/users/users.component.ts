@@ -3,6 +3,8 @@ import { UsersService } from '../../../../core/services/users.service';
 import { Role, User } from '../../../models';
 import { LoadingService } from '../../../../core/services/loading.service';
 import { forkJoin } from 'rxjs';
+import { FullNamePipe } from '../../../../shared/full-name.pipe';
+
 
 @Component({
   selector: 'app-users',
@@ -83,7 +85,7 @@ export class UsersComponent implements OnInit {
 
   onUserDeleted(ev: User): void {
     this.loadingService.setIsLoading(true);
-    this.userService.deleteUser(ev.id).subscribe({
+    this.userService.deleteUser(ev).subscribe({
       next: (users) => this.dataSource = [...users], 
       error: (err) => {},
       complete: () => this.loadingService.setIsLoading(false)

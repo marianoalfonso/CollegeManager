@@ -13,7 +13,13 @@ export class AppComponent {
 
   constructor(private loadingService: LoadingService) {
     this.loadingService.isLoading$.subscribe({
-      next: (value) => this.isLoading = value
+      next: (value) => {
+        // envolvemos la asignacion dentro del timeout
+        // para que se dispare luego del renderizado del html
+        setTimeout(() => {
+         this.isLoading = value; 
+        });
+      }
     })
   }
 }
