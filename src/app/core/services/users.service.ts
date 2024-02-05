@@ -61,32 +61,6 @@ let USERS_DB: User[] = [
     "password": "a53c3443-12c2-4751-a108-34331d430331",
     "role": "admin"
   },
-  {
-    "id": 5,
-    "firstName": "Alyssa",
-    "lastName": "York",
-    "email": "alyssayork@voratak.com",
-    "password": "113e6ab3-6b83-4179-bac0-56b8a71ec530",
-    "role": "admin"
-  },
-  {
-    "id": 6,
-    "firstName": "Cotton",
-    "lastName": "Stark",
-    "email": "cottonstark@voratak.com",
-    "password": "5c59d07a-6b6c-4e33-aac4-989e173bc4e1",
-    "role": "user"
-  },
-  {
-    "id": 7,
-    "firstName": "Caldwell",
-    "lastName": "Morris",
-    "email": "caldwellmorris@voratak.com",
-    "password": "58f0a77a-deee-4d7c-ae50-3c2b0d1d2c24",
-    "role": "user"
-  }
-
-
 ] 
 
 const ROLES_DB: string[] = ['admin', 'user'];
