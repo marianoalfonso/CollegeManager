@@ -18,6 +18,8 @@ import { RouterModule } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
 import { StudentsComponent } from './pages/students/students.component';
 import { UsersComponent } from './pages/users/users.component';
+import { UserDetailComponent } from './pages/users/pages/user-detail/user-detail.component';
+import { StudentDetailComponent } from './pages/students/pages/student-detail/student-detail.component';
 
 
 
@@ -50,8 +52,16 @@ import { UsersComponent } from './pages/users/users.component';
         component: UsersComponent,
       },
       {
+        path: 'users/:id',
+        component: UserDetailComponent,
+      },
+      {
         path: 'students',
         component: StudentsComponent,
+      },
+      {
+        path: 'students/:id',
+        component: StudentDetailComponent,
       },
       {
         // cualquier cosa que no sea el home redirige a home

@@ -3,8 +3,6 @@ import { UsersService } from '../../../../core/services/users.service';
 import { Role, User } from '../../../models';
 import { LoadingService } from '../../../../core/services/loading.service';
 import { forkJoin } from 'rxjs';
-import { FullNamePipe } from '../../../../shared/full-name.pipe';
-
 
 @Component({
   selector: 'app-users',
@@ -21,9 +19,7 @@ export class UsersComponent implements OnInit {
   // realizamos la inyeccion por dependencias e inyectamos el servicio user.service.ts
   constructor(
     private userService: UsersService,
-    private loadingService: LoadingService) { }
-
-
+    private loadingService: LoadingService) {}
 
   displayedColumns: string[] = ['id', 'fullName', 'email', 'role', 'actions'];
   dataSource: User[] = [];
@@ -53,27 +49,13 @@ export class UsersComponent implements OnInit {
       complete: () => this.loadingService.setIsLoading(false)
     })
 
-
-    // // obtengo los roles
-    // this.userService.getRoles().subscribe({
-    //   next: (roles) => this.roles = roles,
-    //   error: (err) => { },
-    // })
-
-    // // obtengo datos de usuarios
-    // this.userService.getUsers().subscribe({
-    //   next: (users) => this.dataSource = users,
-    //   error: (err) => { },
-    //   // complete: () => this.loadingService.setIsLoading(false)
-    // })
-
   }
 
   // cuando reciba el formulario de usuario
   onUserSubmitted(ev: User): void {
     // creamos un nuevo array para origen de la tabla de angular material
     // this.dataSource = [...this.dataSource, { ...ev, id: new Date().getTime() }];
-    this.loadingService.setIsLoading(false);
+    this.loadingService.setIsLoading(true);
     this.userService.createUser({ ...ev, id: new Date().getTime() }).subscribe({
       // ...users porque angular material necesita un nuevo array para el refresh
       // de esta manera se dispara el ciclo de deteccion de cambios de a.material

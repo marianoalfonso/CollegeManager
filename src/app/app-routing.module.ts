@@ -24,7 +24,7 @@ const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: '/404', //con la barra le especificamos que es una ruta absoluta
+    redirectTo: '/dashboard', //con la barra le especificamos que es una ruta absoluta
   },
 ];
 

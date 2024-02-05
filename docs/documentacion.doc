@@ -4,7 +4,14 @@ personalizados
     {{ element | fullName: 'nombrePropio' }}
 .se agrega la fecha y hora en el componente NAV
 
-.ver si da tiempo a crear un pipe para calcular edad
-
-
 directivas
+.se agregan directivas personalizadas para poner en negrita y pintar la cabecera
+ del listado de usuarios y de estudiantes
+
+servicios
+.se agrega el servicio para proveer datos de usuarios y procedimientos asociados
+.se agrega el servicio para proveer datos de estudiantes y procedimientos asociados
+
+rutas
+.se agregan las rutas principales en el app-routing
+.se deinen las rutas forChild en el componente dashboard

@@ -12,11 +12,16 @@ import { MatButtonModule } from '@angular/material/button';
 
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../../../../shared/shared.module';
+import { StudentDetailComponent } from './pages/student-detail/student-detail.component';
+import { RouterModule } from '@angular/router';
+import { StudentsService } from '../../../../core/services/students.service';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
     StudentsComponent,
     StudentFormComponent,
+    StudentDetailComponent,
   ],
   imports: [
     CommonModule,
@@ -26,12 +31,18 @@ import { SharedModule } from '../../../../shared/shared.module';
     MatInputModule,
     MatSelectModule,
     MatButtonModule,
+    MatIconModule,
+
     ReactiveFormsModule,
     // importo los pipe personalizados
     SharedModule,
+    RouterModule,
   ],
   exports: [
     StudentsComponent,
+  ],
+  providers: [
+    StudentsService,
   ]
 })
 export class StudentsModule { }

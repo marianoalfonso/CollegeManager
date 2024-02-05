@@ -2,34 +2,91 @@ import { Injectable } from '@angular/core';
 import { Role, User } from '../../layouts/models';
 import { Observable, delay, of, tap } from 'rxjs';
 import { AlertsService } from './alerts.service';
-import { FullNamePipe } from '../../shared/full-name.pipe';
 
 // let para poder borrar elementos
 let USERS_DB: User[] = [
+  // {
+  //   id: 1,
+  //   firstName: 'Roger',
+  //   lastName: 'Federer',
+  //   email: 'roger.federer@gmail.com',
+  //   password: 'test1234',
+  //   role: 'admin',
+  // },
+  // {
+  //   id: 2,
+  //   firstName: 'Luciana',
+  //   lastName: 'Aimar',
+  //   email: 'luciana.aimar@gmail.com',
+  //   password: 'test1234',
+  //   role: 'user',
+  // },
+  // {
+  //   id: 3,
+  //   firstName: 'Emanuel',
+  //   lastName: 'Ginobili',
+  //   email: 'emanuel.ginobili@gmail.com',
+  //   password: 'test1234',
+  //   role: 'user',
+  // },
   {
-    id: 1,
-    firstName: 'Roger',
-    lastName: 'Federer',
-    email: 'roger.federer@gmail.com',
-    password: 'test1234',
-    role: 'admin',
+    "id": 1,
+    "firstName": "Neva",
+    "lastName": "Avila",
+    "email": "nevaavila@voratak.com",
+    "password": "02345943-5d84-4179-9068-6868c2091038",
+    "role": "user"
   },
   {
-    id: 2,
-    firstName: 'Luciana',
-    lastName: 'Aimar',
-    email: 'luciana.aimar@gmail.com',
-    password: 'test1234',
-    role: 'user',
+    "id": 2,
+    "firstName": "Betty",
+    "lastName": "Avery",
+    "email": "bettyavery@voratak.com",
+    "password": "532c166f-4850-4373-8645-3f8252733339",
+    "role": "user"
   },
   {
-    id: 3,
-    firstName: 'Emanuel',
-    lastName: 'Ginobili',
-    email: 'emanuel.ginobili@gmail.com',
-    password: 'test1234',
-    role: 'user',
+    "id": 3,
+    "firstName": "Hoffman",
+    "lastName": "Russo",
+    "email": "hoffmanrusso@voratak.com",
+    "password": "270a39d2-810e-4210-b68c-cee435189c16",
+    "role": "admin"
   },
+  {
+    "id": 4,
+    "firstName": "Katheryn",
+    "lastName": "Porter",
+    "email": "katherynporter@voratak.com",
+    "password": "a53c3443-12c2-4751-a108-34331d430331",
+    "role": "admin"
+  },
+  {
+    "id": 5,
+    "firstName": "Alyssa",
+    "lastName": "York",
+    "email": "alyssayork@voratak.com",
+    "password": "113e6ab3-6b83-4179-bac0-56b8a71ec530",
+    "role": "admin"
+  },
+  {
+    "id": 6,
+    "firstName": "Cotton",
+    "lastName": "Stark",
+    "email": "cottonstark@voratak.com",
+    "password": "5c59d07a-6b6c-4e33-aac4-989e173bc4e1",
+    "role": "user"
+  },
+  {
+    "id": 7,
+    "firstName": "Caldwell",
+    "lastName": "Morris",
+    "email": "caldwellmorris@voratak.com",
+    "password": "58f0a77a-deee-4d7c-ae50-3c2b0d1d2c24",
+    "role": "user"
+  }
+
+
 ] 
 
 const ROLES_DB: string[] = ['admin', 'user'];
@@ -61,9 +118,7 @@ const ROLES_DB: string[] = ['admin', 'user'];
 @Injectable()
 export class UsersService {
 
-  constructor(private notifier: AlertsService) { 
-    
-  }
+  constructor(private notifier: AlertsService) {}
 
   // este metodo se comunica con la DB y devuelve un observable con el array de usuarios
   getUsers() {
@@ -91,7 +146,11 @@ export class UsersService {
     // tap, con el pipe y el tap le indicamos que haga algo inmediatamente
     // despues que el observable emita un valor
     const mensaje = `usuario "${ payload.lastName }" eliminado correctamente`;
-    console.log(payload.lastName);
     return this.getUsers().pipe(tap(() => this.notifier.showSuccess('usuarios', mensaje)));
+  }
+
+  // me devuelve un observable del tipo User
+  getUserById(id: number | string ): Observable<User | undefined> {
+    return of(USERS_DB.find((user) => user.id == id)).pipe(delay(3000));
   }
 }

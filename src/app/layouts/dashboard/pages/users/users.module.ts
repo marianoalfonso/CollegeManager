@@ -17,11 +17,14 @@ import { SharedModule } from '../../../../shared/shared.module';
 import { UsersService } from '../../../../core/services/users.service';
 import { UsersMockService } from '../../../../core/services/users-mock.service';
 import { MY_USER_TOKEN } from '../../../../core/injection-tokens';
+import { UserDetailComponent } from './pages/user-detail/user-detail.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
     UsersComponent,
-    UserFormComponent
+    UserFormComponent,
+    UserDetailComponent
   ],
   imports: [
     CommonModule,
@@ -35,6 +38,7 @@ import { MY_USER_TOKEN } from '../../../../core/injection-tokens';
 
     ReactiveFormsModule,
     SharedModule,
+    RouterModule,
   ],
   exports: [
     UsersComponent,
