@@ -12,6 +12,7 @@ import { StudentsModule } from './pages/students/students.module';
 import { CoursesModule } from './pages/courses/courses.module';
 import { RxjsExampleModule } from './pages/rxjs-example/rxjs-example.module';
 import { RxjsIntroduccionModule } from './pages/rxjs-introduccion/rxjs-introduccion.module';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { RxjsIntroduccionModule } from './pages/rxjs-introduccion/rxjs-introducc
     CoursesModule,
     RxjsExampleModule,
     RxjsIntroduccionModule,
+    RouterModule,
   ],
   exports: [
     DashboardComponent,
