@@ -11,20 +11,8 @@ const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent,
-    children: [
-      {
-        path: '',
-        component: HomeComponent,
-      },      
-      {
-        path: 'users',
-        component: UsersComponent,
-      },
-      {
-        path: 'students',
-        component: StudentsComponent,
-      },
-    ]
+    loadChildren: () => import('./layouts/dashboard/dashboard.module')
+      .then((mod) => mod.DashboardModule)
   },
   {
     path: 'auth/login',
