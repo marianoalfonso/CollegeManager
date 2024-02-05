@@ -9,35 +9,21 @@ let STUDENTS_DB: Student[] = [
     "firstName": "Mendez",
     "lastName": "Rosales",
     "email": "mendezrosales@frosnex.com",
-    "birthDate": "11/08/1975"
+    "birthDate": "1975-08-11"
   },
   {
     "id": 2,
     "firstName": "Ballard",
     "lastName": "Booth",
     "email": "ballardbooth@frosnex.com",
-    "birthDate": "10/09/1983"
+    "birthDate": "1983-09-10"
   },
   {
     "id": 3,
     "firstName": "Irwin",
     "lastName": "Farley",
     "email": "irwinfarleya@frosnex.com",
-    "birthDate": "13/03/1997"
-  },
-  {
-    "id": 4,
-    "firstName": "Harmon",
-    "lastName": "Wynn",
-    "email": "harmonwynn@frosnex.com",
-    "birthDate": "04/05/1980"
-  },
-  {
-    "id": 5,
-    "firstName": "Morin",
-    "lastName": "Contreras",
-    "email": "morincontreras@frosnex.com",
-    "birthDate": "27/11/1990"
+    "birthDate": "1997-03-13"
   },
 ]
 

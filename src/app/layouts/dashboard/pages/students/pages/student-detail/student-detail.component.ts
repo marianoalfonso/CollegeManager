@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { LoadingService } from '../../../../../../core/services/loading.service';
 import { StudentsService } from '../../../../../../core/services/students.service';
+import { Student } from '../../../../../models';
 
 @Component({
   selector: 'app-student-detail',
@@ -13,6 +14,7 @@ export class StudentDetailComponent {
     private route: ActivatedRoute, 
     private studentsService: StudentsService,
     private loadingService: LoadingService) {
+
 
   this.loadingService.setIsLoading(true);
   this.studentsService.getStudentById(this.route.snapshot.params['id']).subscribe({
