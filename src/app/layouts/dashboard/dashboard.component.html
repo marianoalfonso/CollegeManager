@@ -16,6 +16,11 @@
                 [activated]="studentsLink.isActive"
                 routerLink="students" 
                 mat-list-item>Estudiantes</a>
+            <a #coursesLink="routerLinkActive"
+                routerLinkActive
+                [activated]="coursesLink.isActive"
+                routerLink="courses" 
+                mat-list-item>Cursos</a>
             <a (click)="logOut()" 
                 mat-list-item>Cerrar sesion</a>
         </mat-nav-list>

@@ -20,6 +20,8 @@ import { MY_USER_TOKEN } from '../../../../core/injection-tokens';
 import { UserDetailComponent } from './pages/user-detail/user-detail.component';
 import { RouterModule } from '@angular/router';
 
+import { UsersRoutingModule } from './users-routing.module';
+
 @NgModule({
   declarations: [
     UsersComponent,
@@ -39,6 +41,8 @@ import { RouterModule } from '@angular/router';
     ReactiveFormsModule,
     SharedModule,
     RouterModule,
+
+    UsersRoutingModule,
   ],
   exports: [
     UsersComponent,

@@ -17,6 +17,8 @@ import { RouterModule } from '@angular/router';
 import { StudentsService } from '../../../../core/services/students.service';
 import { MatIconModule } from '@angular/material/icon';
 
+import { StudentsRoutingModule } from './students-routing.module';
+
 @NgModule({
   declarations: [
     StudentsComponent,
@@ -37,6 +39,8 @@ import { MatIconModule } from '@angular/material/icon';
     // importo los pipe personalizados
     SharedModule,
     RouterModule,
+
+    StudentsRoutingModule,
   ],
   exports: [
     StudentsComponent,
