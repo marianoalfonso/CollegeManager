@@ -3,16 +3,20 @@ import { CommonModule } from '@angular/common';
 import { FullNamePipe } from './full-name.pipe';
 import { ResaltadoDirective } from './resaltado.directive';
 
+// importaciones comunes de angular material
+import { MatTableModule } from '@angular/material/table';
 
 
 @NgModule({
   declarations: [
-  
     FullNamePipe,
+
     ResaltadoDirective,
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    MatTableModule,
+    
   ],
   exports: [
     FullNamePipe,

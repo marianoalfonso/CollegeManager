@@ -19,7 +19,6 @@ import { StudentsComponent } from './pages/students/students.component';
 import { UsersComponent } from './pages/users/users.component';
 import { UserDetailComponent } from './pages/users/pages/user-detail/user-detail.component';
 import { StudentDetailComponent } from './pages/students/pages/student-detail/student-detail.component';
-import { CoursesComponent } from './pages/courses/courses.component';
 
 
 
@@ -44,7 +43,8 @@ import { CoursesComponent } from './pages/courses/courses.component';
     RouterModule.forChild([
       {
         path: 'home',
-        component: HomeComponent,
+        loadChildren: () => import('./pages/home/home.module').then((home) => home.HomeModule),
+        // component: HomeComponent,
       },      
       {
         path: 'users',

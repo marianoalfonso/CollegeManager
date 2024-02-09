@@ -3,7 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { CoursesRoutingModule } from './courses-routing.module';
 import { CoursesComponent } from './courses.component';
-
+import { SharedModule } from '../../../../shared/shared.module';
+import { CoursesService } from './courses.service';
 
 @NgModule({
   declarations: [
@@ -11,7 +12,17 @@ import { CoursesComponent } from './courses.component';
   ],
   imports: [
     CommonModule,
-    CoursesRoutingModule
+    CoursesRoutingModule,
+    SharedModule,
+
+  ],
+  providers: [
+    CoursesService,
   ]
 })
-export class CoursesModule { }
+export class CoursesModule {
+  displayedColumns: string[] = ['id', 'courseName', 'startDate', 'actions'];
+  dataSource = [];
+
+
+}

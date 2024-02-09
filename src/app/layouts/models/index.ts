@@ -20,3 +20,9 @@ export interface Role {
     name: string;
     description: string;
 }
+
+export interface Course {
+    id: number;
+    courseName: string;
+    startDate: string;
+}
