@@ -6,14 +6,17 @@ import { CoursesComponent } from './courses.component';
 import { SharedModule } from '../../../../shared/shared.module';
 import { CoursesService } from './courses.service';
 
+import { MatIconModule } from '@angular/material/icon';
+
 @NgModule({
   declarations: [
-    CoursesComponent
+    CoursesComponent 
   ],
   imports: [
     CommonModule,
     CoursesRoutingModule,
     SharedModule,
+    MatIconModule,
 
   ],
   providers: [
@@ -21,8 +24,5 @@ import { CoursesService } from './courses.service';
   ]
 })
 export class CoursesModule {
-  displayedColumns: string[] = ['id', 'courseName', 'startDate', 'actions'];
-  dataSource = [];
-
 
 }

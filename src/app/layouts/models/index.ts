@@ -24,5 +24,5 @@ export interface Role {
 export interface Course {
     id: number;
     courseName: string;
-    startDate: string;
+    startDate: Date;
 }
