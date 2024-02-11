@@ -14,16 +14,18 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../../../../shared/shared.module';
 import { StudentDetailComponent } from './pages/student-detail/student-detail.component';
 import { RouterModule } from '@angular/router';
-import { StudentsService } from '../../../../core/services/students.service';
+import { StudentsService } from './students.service';
 import { MatIconModule } from '@angular/material/icon';
 
 import { StudentsRoutingModule } from './students-routing.module';
+import { StudentDialogComponent } from './components/student-dialog/student-dialog.component';
 
 @NgModule({
   declarations: [
     StudentsComponent,
     StudentFormComponent,
     StudentDetailComponent,
+    StudentDialogComponent,
   ],
   imports: [
     CommonModule,
