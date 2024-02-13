@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,16 +14,13 @@ export class DashboardComponent {
   // inyectamos la dependencia Router
   constructor(
     private router: Router,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute,
+    private authService: AuthService) {
 
   }
 
   logOut(): void {
-    // esto nos lleva a dashboard/users, ya que el ActivatedRoute es dashboard
-    // this.router.navigate(['users'], { relativeTo: this.route });
-
-    localStorage.removeItem('access-token');
-    this.router.navigate(['auth', 'login']);
+    this.authService.logOut();
   }
 
 }

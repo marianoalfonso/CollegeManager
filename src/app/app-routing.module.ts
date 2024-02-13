@@ -7,10 +7,13 @@ import { StudentsComponent } from './layouts/dashboard/pages/students/students.c
 import { HomeComponent } from './layouts/dashboard/pages/home/home.component';
 import { NotFoundComponent } from './layouts/not-found/not-found.component';
 import { AuthModule } from './layouts/auth/auth.module';
+import { authGuard } from './core/guards/auth.guard';
 
 const routes: Routes = [
   {
     path: 'dashboard',
+    // recibe un array porque puede recibir mas de un guard
+    canActivate: [authGuard],
     component: DashboardComponent,
     loadChildren: () => import('./layouts/dashboard/dashboard.module')
       .then((mod) => mod.DashboardModule)

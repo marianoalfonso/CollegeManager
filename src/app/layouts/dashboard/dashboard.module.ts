@@ -19,6 +19,7 @@ import { StudentsComponent } from './pages/students/students.component';
 import { UsersComponent } from './pages/users/users.component';
 import { UserDetailComponent } from './pages/users/pages/user-detail/user-detail.component';
 import { StudentDetailComponent } from './pages/students/pages/student-detail/student-detail.component';
+import { adminGuard } from '../../core/guards/admin.guard';
 
 
 
@@ -47,6 +48,7 @@ import { StudentDetailComponent } from './pages/students/pages/student-detail/st
       },      
       {
         path: 'users',
+        canActivate: [adminGuard],
         loadChildren: () => import('./pages/users/users.module').then((users) => users.UsersModule),
       },
       // {

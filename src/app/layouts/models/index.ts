@@ -26,3 +26,8 @@ export interface Course {
     courseName: string;
     startDate: Date;
 }
+
+export interface LoginData {
+    email: string | null;
+    password: string | null;
+}
