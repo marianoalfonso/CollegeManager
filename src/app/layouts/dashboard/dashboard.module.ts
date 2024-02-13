@@ -44,24 +44,23 @@ import { StudentDetailComponent } from './pages/students/pages/student-detail/st
       {
         path: 'home',
         loadChildren: () => import('./pages/home/home.module').then((home) => home.HomeModule),
-        // component: HomeComponent,
       },      
       {
         path: 'users',
         loadChildren: () => import('./pages/users/users.module').then((users) => users.UsersModule),
       },
-      {
-        path: 'users/:id',
-        component: UserDetailComponent,
-      },
+      // {
+      //   path: 'users/:id',
+      //   component: UserDetailComponent,
+      // },
       {
         path: 'students',
         loadChildren: () => import('./pages/students/students.module').then((student) => student.StudentsModule),
       },
-      {
-        path: 'students/:id',
-        component: StudentDetailComponent,
-      },
+      // {
+      //   path: 'students/:id',
+      //   component: StudentDetailComponent,
+      // },
       {
         //dashboard/courses
         path: 'courses',
