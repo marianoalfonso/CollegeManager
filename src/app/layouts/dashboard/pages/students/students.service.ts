@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { delay, Observable, of, tap } from 'rxjs';
+import { delay, mergeMap, Observable, of, tap } from 'rxjs';
 import { Student } from '../../../models';
 import { AlertsService } from '../../../../core/services/alerts.service';
 import { HttpClient } from '@angular/common/http';
 import { LoadChildren } from '@angular/router';
 import { LoadingService } from '../../../../core/services/loading.service';
+import { environment } from '../../../../../environments/environment';
 
 let STUDENTS_DB: Student[] = [];
 
@@ -19,25 +20,29 @@ export class StudentsService {
     // // {of} es la abreviatura para devolver rapidamente un observable
     // // el pipe delay aplica una demora en la devolucion del observable
     // return of(STUDENTS_DB).pipe(delay(2000));
-    return this.httpClient.get<Student[]>('http://localhost:3000/students').pipe(delay(1000)); 
+    return this.httpClient.get<Student[]>(`${environment.apiUrl}/students`).pipe(delay(1000)); 
   }
 
   // agrego un estudiante al array y devuelvo la funcion getStudents
   createStudent(payload: Student) {
-    STUDENTS_DB.push(payload);
-    return this.getStudents();
+    // STUDENTS_DB.push(payload);
+    // return this.getStudents();
+    return this.httpClient.post<Student>(`${environment.apiUrl}/students`, payload)
+    .pipe(mergeMap(() => this.getStudents())); //hago merge del observable devuelto por el POST on el devuelto por el GET
   }
 
   deleteStudent(payload: Student) {
-    // recibo el objeto User completo para poder obtener el nombre
-    // filtro y me quedo con los que sean diferentes al userID recibido
-    STUDENTS_DB = STUDENTS_DB.filter((student) => student.id !== payload.id);
-    // tap, con el pipe y el tap le indicamos que haga algo inmediatamente
-    // despues que el observable emita un valor
-    const mensaje = `estudiante "${payload.lastName}" eliminado correctamente`;
-    return this.getStudents().pipe(
-      tap(() => this.notifier.showSuccess('estudiantes', mensaje))
-    );
+    // // recibo el objeto User completo para poder obtener el nombre
+    // // filtro y me quedo con los que sean diferentes al userID recibido
+    // STUDENTS_DB = STUDENTS_DB.filter((student) => student.id !== payload.id);
+    // // tap, con el pipe y el tap le indicamos que haga algo inmediatamente
+    // // despues que el observable emita un valor
+    // const mensaje = `estudiante "${payload.lastName}" eliminado correctamente`;
+    // return this.getStudents().pipe(
+    //   tap(() => this.notifier.showSuccess('estudiantes', mensaje))
+    // );
+    return this.httpClient.delete<Student>(`${environment.apiUrl}/students/${payload.id}`)
+    .pipe(mergeMap(() => this.getStudents()));
   }
 
   // me devuelve un observable del tipo User

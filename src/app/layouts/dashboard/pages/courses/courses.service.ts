@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { delay, of, tap } from 'rxjs';
+import { delay, mergeMap, of, tap } from 'rxjs';
 import { AlertsService } from '../../../../core/services/alerts.service';
-import { Course } from '../../../models/index';
+import { Course, User } from '../../../models/index';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../../../environments/environment';
 
 let COURSES_DB: Course[] = [];
 
@@ -15,18 +16,22 @@ export class CoursesService {
 
   getCourses() {
     // return of<Course[]>(COURSES_DB).pipe(delay(1000));
-    return this.httpClient.get<Course[]>('http://localhost:3000/courses').pipe(delay(1000));
+    return this.httpClient.get<Course[]>(`${environment.apiUrl}/courses`).pipe(delay(1000));
   }
 
   createCourse(data: Course) {
-    COURSES_DB = [...COURSES_DB, {...data, id: COURSES_DB.length + 1}]; //se crea un nuevo array por angular material
-    return this.getCourses();
+    // COURSES_DB = [...COURSES_DB, {...data, id: COURSES_DB.length + 1}]; //se crea un nuevo array por angular material
+    // return this.getCourses();
+    return this.httpClient.post<Course>(`${environment.apiUrl}/courses`, data)
+    .pipe(mergeMap(() => this.getCourses())); //hago merge del observable devuelto por el POST on el devuelto por el GET
   }
 
   deleteCourse(payload: Course) {
-    COURSES_DB = COURSES_DB.filter((course) => course.id !== payload.id);
-    const mensaje = `curso "${ payload.courseName }" eliminado !!!`;
-    return this.getCourses().pipe(tap(() => this.notifier.showSuccess('courses', mensaje)));
+    // COURSES_DB = COURSES_DB.filter((course) => course.id !== payload.id);
+    // const mensaje = `curso "${ payload.courseName }" eliminado !!!`;
+    // return this.getCourses().pipe(tap(() => this.notifier.showSuccess('courses', mensaje)));
+    return this.httpClient.delete<Course>(`${environment.apiUrl}/courses/${payload.id}`)
+    .pipe(mergeMap(() => this.getCourses()));
   }
  
   editCourse(payload: Course) {

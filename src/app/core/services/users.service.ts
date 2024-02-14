@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Role, User } from '../../layouts/models';
-import { Observable, delay, of, tap } from 'rxjs';
+import { Observable, delay, mergeMap, of, tap } from 'rxjs';
 import { AlertsService } from './alerts.service';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
 
 // let para poder borrar elementos
 let USERS_DB: User[] = [];
@@ -48,7 +49,8 @@ export class UsersService {
 
     // utilizamos la llamada al servicio JSON
     //devuelve un OBJETO, no un array, debemos indicarle en el generico que devuelve un array de N
-    return this.httpClient.get<User[]>('http://localhost:3000/users').pipe(delay(1000)); 
+    // return this.httpClient.get<User[]>('http://localhost:3000/users').pipe(delay(1000)); 
+    return this.httpClient.get<User[]>(`${environment.apiUrl}/users`).pipe(delay(1000)); 
   }
 
   getRoles(): Observable<string[]> {
@@ -57,18 +59,23 @@ export class UsersService {
 
   // agrego un usuario al array y devuelvo la funcion getUsers
   createUser(payload: User) {
-    USERS_DB.push(payload);
-    return this.getUsers(); 
+    // USERS_DB.push(payload);
+    // return this.getUsers(); 
+    // return this.httpClient.post<User>('http://localhost:3000/users', payload)
+    return this.httpClient.post<User>(`${environment.apiUrl}/users`, payload)
+      .pipe(mergeMap(() => this.getUsers())); //hago merge del observable devuelto por el POST on el devuelto por el GET
   }
 
   deleteUser(payload: User) {
-    // recibo el objeto User completo para poder obtener el nombre
-    // filtro y me quedo con los que sean diferentes al userID recibido
-    USERS_DB = USERS_DB.filter((user) => user.id !== payload.id);
-    // tap, con el pipe y el tap le indicamos que haga algo inmediatamente
-    // despues que el observable emita un valor
-    const mensaje = `usuario "${ payload.lastName }" eliminado correctamente`;
-    return this.getUsers().pipe(tap(() => this.notifier.showSuccess('usuarios', mensaje)));
+    // // recibo el objeto User completo para poder obtener el nombre
+    // // filtro y me quedo con los que sean diferentes al userID recibido
+    // USERS_DB = USERS_DB.filter((user) => user.id !== payload.id);
+    // // tap, con el pipe y el tap le indicamos que haga algo inmediatamente
+    // // despues que el observable emita un valor
+    // const mensaje = `usuario "${ payload.lastName }" eliminado correctamente`;
+    // return this.getUsers().pipe(tap(() => this.notifier.showSuccess('usuarios', mensaje)));
+    return this.httpClient.delete<User>(`${environment.apiUrl}/users/${payload.id}`)
+      .pipe(mergeMap(() => this.getUsers()));
   }
 
   // me devuelve un observable del tipo User
