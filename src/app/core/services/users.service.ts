@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Role, User } from '../../layouts/models';
-import { Observable, delay, mergeMap, of, tap } from 'rxjs';
+import { Observable, delay, mergeMap, of, tap, catchError } from 'rxjs';
 import { AlertsService } from './alerts.service';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
@@ -50,7 +50,12 @@ export class UsersService {
     // utilizamos la llamada al servicio JSON
     //devuelve un OBJETO, no un array, debemos indicarle en el generico que devuelve un array de N
     // return this.httpClient.get<User[]>('http://localhost:3000/users').pipe(delay(1000)); 
-    return this.httpClient.get<User[]>(`${environment.apiUrl}/users`).pipe(delay(1000)); 
+    return this.httpClient.get<User[]>(`${environment.apiUrl}/users`).pipe(
+      delay(1000), 
+      catchError((error) => {
+        this.notifier.showError('error al recuperar los usuarios');
+        return of([]);
+      })); 
   }
 
   getRoles(): Observable<string[]> {
@@ -80,6 +85,7 @@ export class UsersService {
 
   // me devuelve un observable del tipo User
   getUserById(id: number | string ): Observable<User | undefined> {
-    return of(USERS_DB.find((user) => user.id == id)).pipe(delay(3000));
+    // return of(USERS_DB.find((user) => user.id == id)).pipe(delay(3000));
+    return this.httpClient.get<User>(`${environment.apiUrl}/users/${id}`);
   }
 }

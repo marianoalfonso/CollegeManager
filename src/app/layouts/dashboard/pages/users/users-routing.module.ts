@@ -1,17 +1,24 @@
-import { Component, NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { UsersComponent } from './users.component';
 
-const routes: Routes = [
-  {
-    // estamos en /dashboard/users
-    path: '', //cuando estemos en la ruta '' (que es /dashboard/users)
-    component: UsersComponent,  //cargamos este componente
-  },
-];
+// const routes: Routes = [
+//   {
+//     // estamos en /dashboard/users
+//     path: '', //cuando estemos en la ruta '' (que es /dashboard/users)
+//     component: UsersComponent,  //cargamos este componente
+//   },
+// ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  imports: [
+    RouterModule.forChild([
+      {
+        path: '', //cuando estemos en la ruta '' (que es /dashboard/users)
+        component: UsersComponent, //cargamos este componente
+      },
+    ]),
+  ],
+  exports: [RouterModule],
 })
-export class UsersRoutingModule { }
+export class UsersRoutingModule {}

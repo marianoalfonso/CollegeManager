@@ -47,8 +47,7 @@ export class StudentsService {
 
   // me devuelve un observable del tipo User
   getStudentById(id: number | string): Observable<Student | undefined> {
-    return of(STUDENTS_DB.find((student) => student.id == id)).pipe(
-      delay(2000)
-    );
+    // return of(STUDENTS_DB.find((student) => student.id == id)).pipe(delay(2000));
+    return this.httpClient.get<Student>(`${environment.apiUrl}/students/${id}`)
   }
 }

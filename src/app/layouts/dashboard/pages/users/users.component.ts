@@ -3,6 +3,7 @@ import { UsersService } from '../../../../core/services/users.service';
 import { Role, User } from '../../../models';
 import { LoadingService } from '../../../../core/services/loading.service';
 import { forkJoin } from 'rxjs';
+import { AlertsService } from '../../../../core/services/alerts.service';
 
 @Component({
   selector: 'app-users',
@@ -19,7 +20,8 @@ export class UsersComponent implements OnInit {
   // realizamos la inyeccion por dependencias e inyectamos el servicio user.service.ts
   constructor(
     private userService: UsersService,
-    private loadingService: LoadingService) {}
+    private loadingService: LoadingService,
+    private alertService: AlertsService) {}
 
   displayedColumns: string[] = ['id', 'fullName', 'email', 'role', 'actions'];
   dataSource: User[] = [];
@@ -45,7 +47,7 @@ export class UsersComponent implements OnInit {
         this.roles = value[0];
         this.dataSource = value[1];
       },
-      error: (err) => [],
+      error: (err) => {},
       complete: () => this.loadingService.setIsLoading(false)
     })
 

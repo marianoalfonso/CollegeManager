@@ -44,25 +44,26 @@ import { adminGuard } from '../../core/guards/admin.guard';
     RouterModule.forChild([
       {
         path: 'home',
-        loadChildren: () => import('./pages/home/home.module').then((home) => home.HomeModule),
+        // loadChildren: () => import('./pages/home/home.module').then((home) => home.HomeModule),
+        component: HomeComponent,
       },      
       {
         path: 'users',
         canActivate: [adminGuard],
         loadChildren: () => import('./pages/users/users.module').then((users) => users.UsersModule),
       },
-      // {
-      //   path: 'users/:id',
-      //   component: UserDetailComponent,
-      // },
+      {
+        path: 'users/:id',
+        component: UserDetailComponent,
+      },
       {
         path: 'students',
         loadChildren: () => import('./pages/students/students.module').then((student) => student.StudentsModule),
       },
-      // {
-      //   path: 'students/:id',
-      //   component: StudentDetailComponent,
-      // },
+      {
+        path: 'students/:id',
+        component: StudentDetailComponent,
+      },
       {
         //dashboard/courses
         path: 'courses',
