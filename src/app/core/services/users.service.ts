@@ -2,66 +2,10 @@ import { Injectable } from '@angular/core';
 import { Role, User } from '../../layouts/models';
 import { Observable, delay, of, tap } from 'rxjs';
 import { AlertsService } from './alerts.service';
+import { HttpClient } from '@angular/common/http';
 
 // let para poder borrar elementos
-let USERS_DB: User[] = [
-  // {
-  //   id: 1,
-  //   firstName: 'Roger',
-  //   lastName: 'Federer',
-  //   email: 'roger.federer@gmail.com',
-  //   password: 'test1234',
-  //   role: 'admin',
-  // },
-  // {
-  //   id: 2,
-  //   firstName: 'Luciana',
-  //   lastName: 'Aimar',
-  //   email: 'luciana.aimar@gmail.com',
-  //   password: 'test1234',
-  //   role: 'user',
-  // },
-  // {
-  //   id: 3,
-  //   firstName: 'Emanuel',
-  //   lastName: 'Ginobili',
-  //   email: 'emanuel.ginobili@gmail.com',
-  //   password: 'test1234',
-  //   role: 'user',
-  // },
-  {
-    "id": 1,
-    "firstName": "Neva",
-    "lastName": "Avila",
-    "email": "nevaavila@voratak.com",
-    "password": "02345943-5d84-4179-9068-6868c2091038",
-    "role": "user"
-  },
-  {
-    "id": 2,
-    "firstName": "Betty",
-    "lastName": "Avery",
-    "email": "bettyavery@voratak.com",
-    "password": "532c166f-4850-4373-8645-3f8252733339",
-    "role": "user"
-  },
-  {
-    "id": 3,
-    "firstName": "Hoffman",
-    "lastName": "Russo",
-    "email": "hoffmanrusso@voratak.com",
-    "password": "270a39d2-810e-4210-b68c-cee435189c16",
-    "role": "admin"
-  },
-  {
-    "id": 4,
-    "firstName": "Katheryn",
-    "lastName": "Porter",
-    "email": "katherynporter@voratak.com",
-    "password": "a53c3443-12c2-4751-a108-34331d430331",
-    "role": "admin"
-  },
-] 
+let USERS_DB: User[] = [];
 
 const ROLES_DB: string[] = ['admin', 'user'];
 
@@ -92,18 +36,22 @@ const ROLES_DB: string[] = ['admin', 'user'];
 @Injectable()
 export class UsersService {
 
-  constructor(private notifier: AlertsService) {}
+  constructor(
+    private notifier: AlertsService,
+    private httpClient: HttpClient) {}
 
   // este metodo se comunica con la DB y devuelve un observable con el array de usuarios
   getUsers() {
-    console.log('users fetched from real DB');
-    // {of} es la abreviatura para devolver rapidamente un observable
-    // el pipe delay aplica una demora en la devolucion del observable
-    return of(USERS_DB).pipe(delay(2000));
+    // // {of} es la abreviatura para devolver rapidamente un observable
+    // // el pipe delay aplica una demora en la devolucion del observable
+    // return of(USERS_DB).pipe(delay(2000));
+
+    // utilizamos la llamada al servicio JSON
+    //devuelve un OBJETO, no un array, debemos indicarle en el generico que devuelve un array de N
+    return this.httpClient.get<User[]>('http://localhost:3000/users').pipe(delay(1000)); 
   }
 
   getRoles(): Observable<string[]> {
-    console.log('roles fetched from real DB');
     return of(ROLES_DB).pipe(delay(2000));
   }
 

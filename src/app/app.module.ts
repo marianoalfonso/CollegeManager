@@ -13,6 +13,7 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 // angular material
 import { MatTableModule } from '@angular/material/table';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { HttpClientModule } from '@angular/common/http';
 
 // referenciamos la funcion y le pasamos la importacion de la region
 registerLocaleData(es);
@@ -28,6 +29,8 @@ registerLocaleData(es);
     DashboardModule,
     MatProgressSpinnerModule,
     MatTableModule,
+    // manejo de API
+    HttpClientModule,
   ],
   providers: [
     {

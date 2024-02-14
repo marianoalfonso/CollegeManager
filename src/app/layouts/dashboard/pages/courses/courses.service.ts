@@ -2,37 +2,20 @@ import { Injectable } from '@angular/core';
 import { delay, of, tap } from 'rxjs';
 import { AlertsService } from '../../../../core/services/alerts.service';
 import { Course } from '../../../models/index';
+import { HttpClient } from '@angular/common/http';
 
-let COURSES_DB: Course[] = [
-  {
-    id: 1,
-    courseName: 'algoritmos I',
-    startDate: new Date(),
-  },
-  {
-    id: 2,
-    courseName: 'algebra I',
-    startDate: new Date(),
-  },
-  {
-    id: 3,
-    courseName: 'pensamiento critico',
-    startDate: new Date(),
-  },
-  {
-    id: 4,
-    courseName: 'programacion I',
-    startDate: new Date(),
-  },
-]
+let COURSES_DB: Course[] = [];
 
 @Injectable()
 export class CoursesService {
 
-  constructor(private notifier: AlertsService) {}
+  constructor(
+    private notifier: AlertsService,
+    private httpClient: HttpClient) {}
 
   getCourses() {
-    return of<Course[]>(COURSES_DB).pipe(delay(1000));
+    // return of<Course[]>(COURSES_DB).pipe(delay(1000));
+    return this.httpClient.get<Course[]>('http://localhost:3000/courses').pipe(delay(1000));
   }
 
   createCourse(data: Course) {

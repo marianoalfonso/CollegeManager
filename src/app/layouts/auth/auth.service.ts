@@ -3,8 +3,17 @@ import { User } from '../models';
 import { Router } from '@angular/router';
 import { LoginData } from '../models';
 import { AlertsService } from '../../core/services/alerts.service';
-import { delay, finalize, map, of } from 'rxjs';
+import { delay, finalize, map, of, tap } from 'rxjs';
 import { LoadingService } from '../../core/services/loading.service';
+
+const mockUser = {
+  id: 15,
+  firstName: 'nombre',
+  lastName: 'apellido',
+  email: 'test@test.com',
+  password: 'test1234',
+  role: 'admin'
+}
 
 @Injectable({
   providedIn: 'root'
@@ -16,21 +25,18 @@ export class AuthService {
     private alertService: AlertsService,
     private loadingService: LoadingService) { }
 
+  setAuthUser(mockUser: User): void {
+    this.authUser = mockUser;
+    localStorage.setItem('token', 'jpo4234lkjgmdlk34534');
+  }
+
   authUser: User | null = null;
 
   logIn(data: LoginData): void {
-    const mockUser = {
-      id: 15,
-      firstName: 'nombre',
-      lastName: 'apellido',
-      email: 'test@test.com',
-      password: 'test1234',
-      role: 'user'
-    }
+
 
     if (data.email === mockUser.email && data.password === mockUser.password) {
-      this.authUser = mockUser;
-      localStorage.setItem('token', 'jpo4234lkjgmdlk34534')
+      this.setAuthUser(mockUser);
       this.router.navigate(['dashboard']);
     } else {
       this.alertService.showError('usuario invalido')
@@ -50,6 +56,7 @@ export class AuthService {
     return of(localStorage.getItem('token')).pipe(
       delay(1000),
       map((response) => !!response),
+      tap(() => this.setAuthUser(mockUser)),
       finalize(() => this.loadingService.setIsLoading(false))
     );
   }
