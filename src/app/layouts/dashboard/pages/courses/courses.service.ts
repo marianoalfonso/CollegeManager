@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { delay, mergeMap, of, tap } from 'rxjs';
+import { catchError, delay, mergeMap, of, tap } from 'rxjs';
 import { AlertsService } from '../../../../core/services/alerts.service';
 import { Course, User } from '../../../models/index';
 import { HttpClient } from '@angular/common/http';
@@ -16,7 +16,12 @@ export class CoursesService {
 
   getCourses() {
     // return of<Course[]>(COURSES_DB).pipe(delay(1000));
-    return this.httpClient.get<Course[]>(`${environment.apiUrl}/courses`).pipe(delay(1000));
+    return this.httpClient.get<Course[]>(`${environment.apiUrl}/courses`).pipe(
+      delay(1000),
+      catchError((error) => {
+        this.notifier.showError('error al recuperar los cursos');
+        return of([]);
+      }));
   }
 
   createCourse(data: Course) {

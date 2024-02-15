@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Role, User } from '../../layouts/models';
+import { Role, User } from '../../../models';
 import { Observable, delay, mergeMap, of, tap, catchError } from 'rxjs';
-import { AlertsService } from './alerts.service';
+import { AlertsService } from '../../../../core/services/alerts.service';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../environments/environment';
+import { environment } from '../../../../../environments/environment';
+import { Router } from '@angular/router';
 
 // let para poder borrar elementos
 let USERS_DB: User[] = [];
@@ -64,10 +65,7 @@ export class UsersService {
 
   // agrego un usuario al array y devuelvo la funcion getUsers
   createUser(payload: User) {
-    // USERS_DB.push(payload);
-    // return this.getUsers(); 
-    // return this.httpClient.post<User>('http://localhost:3000/users', payload)
-    return this.httpClient.post<User>(`${environment.apiUrl}/users`, payload)
+    return this.httpClient.post<User>(`${environment.apiUrl}/users`, { ...payload, token: this.generateString(32) })
       .pipe(mergeMap(() => this.getUsers())); //hago merge del observable devuelto por el POST on el devuelto por el GET
   }
 
@@ -88,4 +86,15 @@ export class UsersService {
     // return of(USERS_DB.find((user) => user.id == id)).pipe(delay(3000));
     return this.httpClient.get<User>(`${environment.apiUrl}/users/${id}`);
   }
+
+  generateString(length: number) {
+    const setCaracteres: string ='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let result = '';
+    const charactersLength = setCaracteres.length;
+    for ( let i = 0; i < length; i++ ) {
+        result += setCaracteres.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+}
+
 }

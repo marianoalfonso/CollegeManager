@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { delay, mergeMap, Observable, of, tap } from 'rxjs';
+import { catchError, delay, mergeMap, Observable, of, tap } from 'rxjs';
 import { Student } from '../../../models';
 import { AlertsService } from '../../../../core/services/alerts.service';
 import { HttpClient } from '@angular/common/http';
@@ -20,7 +20,12 @@ export class StudentsService {
     // // {of} es la abreviatura para devolver rapidamente un observable
     // // el pipe delay aplica una demora en la devolucion del observable
     // return of(STUDENTS_DB).pipe(delay(2000));
-    return this.httpClient.get<Student[]>(`${environment.apiUrl}/students`).pipe(delay(1000)); 
+    return this.httpClient.get<Student[]>(`${environment.apiUrl}/students`).pipe(
+      delay(1000),
+      catchError((error) => {
+        this.notifier.showError('error al recuperar los estudiantes');
+        return of([]);
+      }));
   }
 
   // agrego un estudiante al array y devuelvo la funcion getStudents

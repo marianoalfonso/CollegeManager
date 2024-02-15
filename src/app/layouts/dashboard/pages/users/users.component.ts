@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UsersService } from '../../../../core/services/users.service';
+import { UsersService } from './users.service';
 import { Role, User } from '../../../models';
 import { LoadingService } from '../../../../core/services/loading.service';
 import { forkJoin } from 'rxjs';
@@ -58,7 +58,8 @@ export class UsersComponent implements OnInit {
     // creamos un nuevo array para origen de la tabla de angular material
     // this.dataSource = [...this.dataSource, { ...ev, id: new Date().getTime() }];
     this.loadingService.setIsLoading(true);
-    this.userService.createUser({ ...ev, id: new Date().getTime() }).subscribe({
+    // this.userService.createUser({ ...ev, id: new Date().getTime() }).subscribe({
+    this.userService.createUser(ev).subscribe({
       // ...users porque angular material necesita un nuevo array para el refresh
       // de esta manera se dispara el ciclo de deteccion de cambios de a.material
       next: (users) => this.dataSource = [...users], 

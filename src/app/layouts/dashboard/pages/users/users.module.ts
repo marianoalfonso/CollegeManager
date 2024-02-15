@@ -14,7 +14,7 @@ import { MatIconModule } from '@angular/material/icon';
 
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../../../../shared/shared.module';
-import { UsersService } from '../../../../core/services/users.service';
+import { UsersService } from './users.service';
 import { MY_USER_TOKEN } from '../../../../core/injection-tokens';
 import { UserDetailComponent } from './pages/user-detail/user-detail.component';
 import { RouterModule } from '@angular/router';

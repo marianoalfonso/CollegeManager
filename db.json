@@ -5,32 +5,63 @@
       "firstName": "Neva",
       "lastName": "Avila",
       "email": "nevaavila@voratak.com",
-      "password": "02345943-5d84-4179-9068-6868c2091038",
-      "role": "user"
+      "password": "test1234",
+      "role": "admin",
+      "token": "lkdinacsiudfkjgdhsfglks5432452"
     },
     {
       "id": "2",
       "firstName": "Betty",
       "lastName": "Avery",
       "email": "bettyavery@voratak.com",
-      "password": "532c166f-4850-4373-8645-3f8252733339",
-      "role": "user"
+      "password": "test1234",
+      "role": "user",
+      "token": "34kjhgfjhtfciyc897fy"
     },
     {
       "id": "4",
       "firstName": "Katheryn",
       "lastName": "Porter",
       "email": "katherynporter@voratak.com",
-      "password": "a53c3443-12c2-4751-a108-34331d430331",
-      "role": "admin"
+      "password": "test1234",
+      "role": "admin",
+      "token": "kndkancuvahs09837y09t8"
     },
     {
       "id": "5",
       "firstName": "Lenna",
       "lastName": "Karter",
       "email": "Lennakarter@gmail.com",
-      "password": "a53c3asda-345234562432",
-      "role": "user"
+      "password": "test1234",
+      "role": "user",
+      "token": "lkjhdlkjha0s873jkbflkjhfs90pa87fhgp"
+    },
+    {
+      "id": "6",
+      "firstName": "Laura",
+      "lastName": "Santillan",
+      "email": "laurasantillan@gmail.com",
+      "password": "test1234",
+      "role": "admin",
+      "token": "r0dUhHpFZJ83"
+    },
+    {
+      "id": "7",
+      "firstName": "test",
+      "lastName": "test",
+      "email": "test@test.com",
+      "password": "test",
+      "role": "admin",
+      "token": "kYX1iyb3Y5t4YOiuzREGx7k5Zh43ke1l"
+    },
+    {
+      "id": "2c77",
+      "firstName": "aa",
+      "lastName": "aa",
+      "email": "aa@adsfas",
+      "password": "werqwerq",
+      "role": "admin",
+      "token": "2YjxG6d2auN4sJfBE9UKmOd4mA8oQ7ts"
     }
   ],
   "students": [

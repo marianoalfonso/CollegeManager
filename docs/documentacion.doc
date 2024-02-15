@@ -15,3 +15,9 @@ servicios
 rutas
 .se agregan las rutas principales en el app-routing
 .se deinen las rutas forChild en el componente dashboard
+
+tests
+.loginComponent
+
+edicion en dialogs
+.cursos

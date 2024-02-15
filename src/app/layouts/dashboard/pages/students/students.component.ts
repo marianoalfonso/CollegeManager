@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { StudentsService } from './students.service';
 import { Student } from '../../../models';
-import { forkJoin } from 'rxjs';
 import { LoadingService } from '../../../../core/services/loading.service';
 import { MatDialog } from '@angular/material/dialog';
 import { StudentDialogComponent } from './components/student-dialog/student-dialog.component';
