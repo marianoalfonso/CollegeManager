@@ -25,7 +25,7 @@ import { adminGuard } from '../../core/guards/admin.guard';
 
 @NgModule({
   declarations: [
-    DashboardComponent
+    DashboardComponent,
   ],
   imports: [
     CommonModule,

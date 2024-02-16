@@ -4,6 +4,8 @@ import { Role, User } from '../../../models';
 import { LoadingService } from '../../../../core/services/loading.service';
 import { forkJoin } from 'rxjs';
 import { AlertsService } from '../../../../core/services/alerts.service';
+import { MatDialog } from '@angular/material/dialog';
+import { UserDialogComponent } from './components/user-dialog/user-dialog.component';
 
 @Component({
   selector: 'app-users',
@@ -21,7 +23,8 @@ export class UsersComponent implements OnInit {
   constructor(
     private userService: UsersService,
     private loadingService: LoadingService,
-    private alertService: AlertsService) {}
+    private alertService: AlertsService,
+    private dialog: MatDialog) {}
 
   displayedColumns: string[] = ['id', 'fullName', 'email', 'role', 'actions'];
   dataSource: User[] = [];
@@ -50,7 +53,20 @@ export class UsersComponent implements OnInit {
       error: (err) => {},
       complete: () => this.loadingService.setIsLoading(false)
     })
+  }
 
+  // este metodo es llamado desde el boton AGREGAR del form
+  onUserCreated(): void {
+    // se invoca al control DIALOG
+    this.dialog.open(UserDialogComponent).afterClosed().subscribe({
+      next: (result) => {
+        if(result) {
+          this.userService.createUser(result).subscribe({
+            next: (courses) => this.dataSource = courses,
+          });
+        }
+      }
+    });
   }
 
   // cuando reciba el formulario de usuario

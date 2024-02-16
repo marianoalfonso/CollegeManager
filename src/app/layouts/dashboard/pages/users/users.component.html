@@ -1,7 +1,12 @@
 <!-- escucho el evento emitido por el componente hijo y ejecuto onUserSubmitted pasando el evento como como parametro-->
-<app-user-form (userSubmitted)="onUserSubmitted($event)"> </app-user-form>
+<!-- <app-user-form (userSubmitted)="onUserSubmitted($event)"> </app-user-form> -->
 
-<!-- <pre>{{ roles | json }}</pre> -->
+<div class="flex justify-content-end mb-3">
+  <button (click)="onUserCreated()" mat-button>
+    agregar
+  </button>
+</div>
+
 
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 

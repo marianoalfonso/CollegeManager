@@ -30,24 +30,6 @@ export class StudentsComponent implements OnInit {
     this.getPageData();
   }
 
-  // getPageData(): void {
-  //   this.loadingService.setIsLoading(true);
-
-  //   // uso el forkJoin para futuras modificaciones
-  //   // donde deba manejar varios observables
-  //   forkJoin([
-  //     this.studentService.getStudents()
-  //   ]).subscribe({
-  //     // el value recibe un array de arrays,
-  //     // donde el primer elemento es el array de Roles y el segundo el de Students
-  //     next: (value) => {
-  //       this.dataSource = value[0];
-  //     },
-  //     error: (err) => [],
-  //     complete: () => this.loadingService.setIsLoading(false)
-  //   })
-  // }
-
   getPageData(): void {
     this.loadingService.setIsLoading(true);
 
