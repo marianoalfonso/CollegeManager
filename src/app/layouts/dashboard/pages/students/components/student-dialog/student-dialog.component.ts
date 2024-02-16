@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Student } from '../../../../../models';
 
@@ -18,10 +18,10 @@ export class StudentDialogComponent {
     @Inject(MAT_DIALOG_DATA) private dataStudentEditing?: Student
     ) {
       this.studentForm = this.fb.group({
-        firstName: this.fb.control(''),
-        lastname: this.fb.control(''),
-        email: this.fb.control(''),
-        birthDate: this.fb.control(''),
+        firstName: this.fb.control('', Validators.required),
+        lastName: this.fb.control('', Validators.required),
+        email: this.fb.control('', [Validators.required, Validators.email]),
+        birthDate: this.fb.control('', Validators.required),
       });
 
       if(dataStudentEditing) {
