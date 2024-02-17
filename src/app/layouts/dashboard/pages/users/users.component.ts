@@ -10,7 +10,7 @@ import { UserDialogComponent } from './components/user-dialog/user-dialog.compon
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
-  styleUrl: './users.component.scss'
+  styleUrl: './users.component.scss',
 })
 
 // los ciclos de vida en angular se implementan en el siguiente orden:
@@ -18,19 +18,18 @@ import { UserDialogComponent } from './components/user-dialog/user-dialog.compon
 // .onchange
 // .oninit
 export class UsersComponent implements OnInit {
-
   // realizamos la inyeccion por dependencias e inyectamos el servicio user.service.ts
   constructor(
     private userService: UsersService,
     private loadingService: LoadingService,
     private alertService: AlertsService,
-    private dialog: MatDialog) {}
+    private dialog: MatDialog
+  ) {}
 
   displayedColumns: string[] = ['id', 'fullName', 'email', 'role', 'actions'];
   dataSource: User[] = [];
   // roles: Role[] = [];
   roles: string[] = [];
-
 
   ngOnInit(): void {
     this.getPageData();
@@ -45,28 +44,31 @@ export class UsersComponent implements OnInit {
       this.userService.getUsers(),
     ]).subscribe({
       // el value recibe un array de arrays,
-      // donde el primer elemento es el array de Roles y el segundo el de Users 
+      // donde el primer elemento es el array de Roles y el segundo el de Users
       next: (value) => {
         this.roles = value[0];
         this.dataSource = value[1];
       },
       error: (err) => {},
-      complete: () => this.loadingService.setIsLoading(false)
-    })
+      complete: () => this.loadingService.setIsLoading(false),
+    });
   }
 
   // este metodo es llamado desde el boton AGREGAR del form
   onUserCreated(): void {
     // se invoca al control DIALOG
-    this.dialog.open(UserDialogComponent).afterClosed().subscribe({
-      next: (result) => {
-        if(result) {
-          this.userService.createUser(result).subscribe({
-            next: (courses) => this.dataSource = courses,
-          });
-        }
-      }
-    });
+    this.dialog
+      .open(UserDialogComponent)
+      .afterClosed()
+      .subscribe({
+        next: (result) => {
+          if (result) {
+            this.userService.createUser(result).subscribe({
+              next: (courses) => (this.dataSource = courses),
+            });
+          }
+        },
+      });
   }
 
   // cuando reciba el formulario de usuario
@@ -78,19 +80,33 @@ export class UsersComponent implements OnInit {
     this.userService.createUser(ev).subscribe({
       // ...users porque angular material necesita un nuevo array para el refresh
       // de esta manera se dispara el ciclo de deteccion de cambios de a.material
-      next: (users) => this.dataSource = [...users], 
+      next: (users) => (this.dataSource = [...users]),
       error: (err) => {},
-      complete: () => this.loadingService.setIsLoading(false)
+      complete: () => this.loadingService.setIsLoading(false),
     });
   }
 
   onUserDeleted(ev: User): void {
     this.loadingService.setIsLoading(true);
     this.userService.deleteUser(ev).subscribe({
-      next: (users) => this.dataSource = [...users], 
+      next: (users) => (this.dataSource = [...users]),
       error: (err) => {},
-      complete: () => this.loadingService.setIsLoading(false)
-    })
+      complete: () => this.loadingService.setIsLoading(false),
+    });
   }
 
+  onUserEdited(user: User) {
+    this.dialog
+      .open(UserDialogComponent, { data: user })
+      .afterClosed()
+      .subscribe({
+        next: (result) => {
+          if (result) {
+            this.userService.updateUser(user.id, result).subscribe({
+              next: (courses) => (this.dataSource = courses),
+            });
+          }
+        },
+      });
+  }
 }

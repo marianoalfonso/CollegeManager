@@ -11,19 +11,6 @@ let USERS_DB: User[] = [];
 
 const ROLES_DB: string[] = ['admin', 'user'];
 
-// const ROLES_DB: Roles[] = [
-//   {
-//     id: 1,
-//     name: 'admin',
-//     description: 'administrador del sistema con privilegios totales',
-//   },
-//   {
-//     id: 2,
-//     name: 'user',
-//     description: 'usuario con privilegios minimos',
-//   },
-// ]
-
 // los servicios se instancian por unica vez
 // y son unicos para todas las llamadas
 
@@ -81,12 +68,19 @@ export class UsersService {
       .pipe(mergeMap(() => this.getUsers()));
   }
 
+  updateUser(idUser: number, payload: User) {
+    USERS_DB = USERS_DB.map((elemento) => elemento.id == idUser ? {...elemento, ...payload} : elemento);
+    console.log(USERS_DB);
+    return this.getUsers();
+  }
+
   // me devuelve un observable del tipo User
   getUserById(id: number | string ): Observable<User | undefined> {
     // return of(USERS_DB.find((user) => user.id == id)).pipe(delay(3000));
     return this.httpClient.get<User>(`${environment.apiUrl}/users/${id}`);
   }
 
+  // genera una cadena random para el token
   generateString(length: number) {
     const setCaracteres: string ='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     let result = '';

@@ -47,7 +47,7 @@ export class CoursesService {
   updateCourse(id: number, payload: Course) {
     // con MAP recorro el array hasta encontrar el id que quiero y lo actualizo
     // si el id coincide, piso elemento, sino dejo el elemento como esta
-    COURSES_DB = COURSES_DB.map((elemento) => (elemento.id === id ? {...elemento, ...payload} : elemento));
+    COURSES_DB = COURSES_DB.map((elemento) => elemento.id === id ? {...elemento, ...payload} : elemento);
     return this.getCourses();
   }
 

@@ -19,17 +19,24 @@
                 <input formControlName="email" matInput />
             </mat-form-field>
         </div>
-        <div class="col-12">
+        <div class="col-6">
             <mat-form-field class="w-full">
                 <mat-label>password</mat-label>
                 <input formControlName="password" matInput />
             </mat-form-field>
         </div>
-
+        <div class="col-6">
+            <mat-form-field class="w-full">
+              <mat-label>rol</mat-label>
+              <mat-select formControlName="role">
+                <mat-option value="admin">admin</mat-option>
+                <mat-option value="user">user</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
     </form>
 </div>
 <div mat-dialog-actions>
-    <!-- <button (click)="onSave()" mat-button>guardar</button> -->
-    <button  mat-button>guardar</button>
+    <button (click)="onSave()" mat-button>guardar</button>
     <button mat-dialog-close mat-button>cancelar</button>
 </div>
