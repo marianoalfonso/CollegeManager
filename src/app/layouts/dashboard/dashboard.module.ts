@@ -72,6 +72,13 @@ import { adminGuard } from '../../core/guards/admin.guard';
         loadChildren: () => import('./pages/courses/courses.module').then((course) => course.CoursesModule),
       },
       {
+        //dashboard/courses
+        path: 'redux',
+        // aplicamos lazy-load
+        // es una Promesa, del archivo de modulos queremos estraer la clase CoursessModule
+        loadChildren: () => import('./pages/redux/redux.module').then((redux) => redux.ReduxModule),
+      },
+      {
         // cualquier cosa que no sea el home redirige a home
         path: '**',
         redirectTo: 'home'
