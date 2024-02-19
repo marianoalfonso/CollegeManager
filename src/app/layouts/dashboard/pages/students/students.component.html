@@ -2,52 +2,66 @@
 <!-- <app-student-form (studentSubmitted)="onStudentSubmitted($event)"></app-student-form> -->
 
 <div class="flex justify-content-end mb-3">
-  <button (click)="onStudentCreated()" mat-button>
-    agregar
-  </button>
+  <button (click)="onStudentCreated()" mat-button>agregar</button>
 </div>
 
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  <!-- id Column -->
+  <ng-container matColumnDef="id">
+    <th appResaltado mat-header-cell *matHeaderCellDef>id</th>
+    <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+  </ng-container>
 
-    <!-- id Column -->
-    <ng-container matColumnDef="id">
-      <th appResaltado mat-header-cell *matHeaderCellDef> id </th>
-      <td mat-cell *matCellDef="let element"> {{ element.id }} </td>
-    </ng-container>
-  
-    <!-- fullName Column -->
-    <ng-container matColumnDef="fullName">
-      <th appResaltado mat-header-cell *matHeaderCellDef> name </th>
-      <td mat-cell *matCellDef="let element"> {{ element | fullName: 'nombrePropio' }} </td>
-    </ng-container>
-  
-    <!-- email Column -->
-    <ng-container matColumnDef="email">
-      <th appResaltado mat-header-cell *matHeaderCellDef> email </th>
-      <td mat-cell *matCellDef="let element"> {{ element.email }} </td>
-    </ng-container>
-  
-    <!-- birthDate Column -->
-    <ng-container matColumnDef="birthDate">
-      <th appResaltado mat-header-cell *matHeaderCellDef> birthDate </th>
-      <td mat-cell *matCellDef="let element"> {{ element.birthDate | date: 'dd/mm/yyyy' }} </td>
-    </ng-container>
-    
-    <!-- actions Column -->
-    <ng-container matColumnDef="actions">
-      <th appResaltado mat-header-cell *matHeaderCellDef> acciones </th>
-      <td mat-cell *matCellDef="let element">
+  <!-- fullName Column -->
+  <ng-container matColumnDef="fullName">
+    <th appResaltado mat-header-cell *matHeaderCellDef>name</th>
+    <td mat-cell *matCellDef="let element">
+      {{ element | fullName : "nombrePropio" }}
+    </td>
+  </ng-container>
 
-        <button [routerLink]="element.id" routerLinkActive="router-link-active"  color="accent" mat-icon-button>
-          <mat-icon>visibility</mat-icon>>
-        </button>
+  <!-- email Column -->
+  <ng-container matColumnDef="email">
+    <th appResaltado mat-header-cell *matHeaderCellDef>email</th>
+    <td mat-cell *matCellDef="let element">{{ element.email }}</td>
+  </ng-container>
 
-        <button (click)="onStudentDeleted(element)" mat-icon-button color="warn">
-          <mat-icon>delete</mat-icon>
-        </button>
-      </td>
-    </ng-container>
+  <!-- birthDate Column -->
+  <ng-container matColumnDef="birthDate">
+    <th appResaltado mat-header-cell *matHeaderCellDef>birthDate</th>
+    <td mat-cell *matCellDef="let element">
+      {{ element.birthDate | date : "dd/mm/yyyy" }}
+    </td>
+  </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
+  <!-- actions Column -->
+  <ng-container matColumnDef="actions">
+    <th appResaltado mat-header-cell *matHeaderCellDef>acciones</th>
+    <td mat-cell *matCellDef="let element">
+      <button
+        [routerLink]="element.id"
+        routerLinkActive="router-link-active"
+        color="accent"
+        mat-icon-button
+      >
+        <mat-icon>visibility</mat-icon>>
+      </button>
+
+      <button (click)="onStudentDeleted(element)" mat-icon-button color="warn">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>
+
+<mat-paginator
+  (page)="onPage($event)"
+  [length]="totalRows"
+  [pageSize]="pageSize"
+  [pageSizeOptions]="[5, 10, 25, 100]"
+  aria-label="Select page"
+>
+</mat-paginator>

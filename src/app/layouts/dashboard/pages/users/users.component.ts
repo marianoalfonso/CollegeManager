@@ -6,6 +6,7 @@ import { forkJoin } from 'rxjs';
 import { AlertsService } from '../../../../core/services/alerts.service';
 import { MatDialog } from '@angular/material/dialog';
 import { UserDialogComponent } from './components/user-dialog/user-dialog.component';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-users',
@@ -31,6 +32,11 @@ export class UsersComponent implements OnInit {
   // roles: Role[] = [];
   roles: string[] = [];
 
+  totalRows: number = 0;
+  pageSize: number = 5;
+  currentPage: number = 1;
+
+
   ngOnInit(): void {
     this.getPageData();
   }
@@ -41,13 +47,17 @@ export class UsersComponent implements OnInit {
     // forkJoin recibe un array de observables
     forkJoin([
       this.userService.getRoles(),
-      this.userService.getUsers(),
+      // this.userService.getUsers(),
+      this.userService.paginateUsers(this.currentPage),
     ]).subscribe({
       // el value recibe un array de arrays,
       // donde el primer elemento es el array de Roles y el segundo el de Users
       next: (value) => {
         this.roles = value[0];
-        this.dataSource = value[1];
+        // this.dataSource = value[1];
+        const paginationResult = value[1];
+        this.totalRows = paginationResult.items;
+        this.dataSource = paginationResult.data;
       },
       error: (err) => {},
       complete: () => this.loadingService.setIsLoading(false),
@@ -109,4 +119,19 @@ export class UsersComponent implements OnInit {
         },
       });
   }
+
+  // cuando se produce una paginacion
+  onPage(ev: PageEvent) {
+    // esto es porque la pagina 1 es el index 0 para angular material
+    this.currentPage = ev.pageIndex + 1;
+    this.userService.paginateUsers(this.currentPage, ev.pageSize).subscribe({
+      next: (paginateResult) => {
+          this.totalRows = paginateResult.items;
+          this.dataSource = paginateResult.data;
+          this.pageSize = ev.pageSize;
+          this.currentPage = this.currentPage;
+      }
+    })
+  } 
+
 }

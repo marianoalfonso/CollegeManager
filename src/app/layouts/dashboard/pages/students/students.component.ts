@@ -4,6 +4,7 @@ import { Student } from '../../../models';
 import { LoadingService } from '../../../../core/services/loading.service';
 import { MatDialog } from '@angular/material/dialog';
 import { StudentDialogComponent } from './components/student-dialog/student-dialog.component';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-students',
@@ -26,6 +27,23 @@ export class StudentsComponent implements OnInit {
   ];
   dataSource: Student[] = [];
 
+  totalRows: number = 0;
+  pageSize: number = 5;
+  currentPage: number = 1;
+  
+  onPage(ev: PageEvent) {
+    this.currentPage = ev.pageIndex + 1;
+    this.studentService.paginateStudents(this.currentPage, this.pageSize).subscribe({
+      next: (paginateResult) => {
+        this.totalRows = paginateResult.items;
+        this.dataSource = paginateResult.data;
+        this.pageSize = ev.pageSize;
+        this.currentPage = this.currentPage;
+      }
+    })
+  }
+
+
   ngOnInit(): void {
     this.getPageData();
   }
@@ -35,12 +53,15 @@ export class StudentsComponent implements OnInit {
 
     // uso el forkJoin para futuras modificaciones
     // donde deba manejar varios observables
-
-    this.studentService.getStudents().subscribe({
+    this.studentService.paginateStudents(this.currentPage).subscribe({
+    // this.studentService.getStudents().subscribe({
       // el value recibe un array de arrays,
       // donde el primer elemento es el array de Roles y el segundo el de Students
       next: (value) => {
-        this.dataSource = value;
+        // this.dataSource = value;
+        const paginationResult = value;
+        this.totalRows = value.items;
+        this.dataSource = value.data;
       },
       error: (err) => {},
       complete: () => this.loadingService.setIsLoading(false),

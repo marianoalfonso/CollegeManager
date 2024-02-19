@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { catchError, delay, mergeMap, of, tap } from 'rxjs';
 import { AlertsService } from '../../../../core/services/alerts.service';
-import { Course, User } from '../../../models/index';
+import { Course, Pagination, User } from '../../../models/index';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../environments/environment';
 
@@ -22,6 +22,13 @@ export class CoursesService {
         this.notifier.showError('error al recuperar los cursos');
         return of([]);
       }));
+  }
+
+  paginateCourses(page: number, perPage = 5) {
+    // el get va a devolver una paginacion  
+    return this.httpClient.get<Pagination<Course>>( 
+      `${environment.apiUrl}/courses?_page=${page}&_per_page=${perPage}`
+    );
   }
 
   createCourse(data: Course) {

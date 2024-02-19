@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { PageEvent } from '@angular/material/paginator';
 import { LoadChildren } from '@angular/router';
 import { LoadingService } from '../../../../core/services/loading.service';
 import { Course } from '../../../models';
@@ -18,16 +19,38 @@ export class CoursesComponent {
   displayedColumns: string[] = ['id', 'courseName', 'startDate', 'actions'];
   dataSource: Course[] = [];
 
+  totalRows: number = 0;
+  pageSize: number = 5;
+  currentPage: number = 1;
+
   constructor(
     private coursesService: CoursesService,
     private loadingService: LoadingService,
     public dialog: MatDialog) {
       this.loadingService.setIsLoading(true);
-      this.coursesService.getCourses().subscribe({
-        next: (courses) => 
-          this.dataSource = courses,
+      // this.coursesService.getCourses().subscribe({
+      this.coursesService.paginateCourses(this.currentPage).subscribe({
+        next: (courses) => {
+          // this.dataSource = courses,
+          const paginationResult = courses;
+          this.totalRows = paginationResult.items;
+          this.dataSource = paginationResult.data;
+        },
         complete: () => this.loadingService.setIsLoading(false)
       });
+  }
+
+  onPage(ev: PageEvent) {
+      // esto es porque la pagina 1 es el index 0 para angular material
+      this.currentPage = ev.pageIndex + 1;
+      this.coursesService.paginateCourses(this.currentPage, ev.pageSize).subscribe({
+        next: (paginateResult) => {
+            this.totalRows = paginateResult.items;
+            this.dataSource = paginateResult.data;
+            this.pageSize = ev.pageSize;
+            this.currentPage = this.currentPage;
+        }
+      })
   }
 
   onCourseCreated(): void {

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { catchError, delay, mergeMap, Observable, of, tap } from 'rxjs';
-import { Student } from '../../../models';
+import { Pagination, Student } from '../../../models';
 import { AlertsService } from '../../../../core/services/alerts.service';
 import { HttpClient } from '@angular/common/http';
 import { LoadChildren } from '@angular/router';
@@ -26,6 +26,12 @@ export class StudentsService {
         this.notifier.showError('error al recuperar los estudiantes');
         return of([]);
       }));
+  }
+
+  paginateStudents(page: number, perPage = 5) {
+    return this.httpClient.get<Pagination<Student>>(
+      `${environment.apiUrl}/students?_page=${page}&_per_page=${perPage}`
+    );
   }
 
   // agrego un estudiante al array y devuelvo la funcion getStudents

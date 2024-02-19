@@ -1,23 +1,30 @@
-pipes 
-personalizados
-.se une el apellido y nombre del usuario
-    {{ element | fullName: 'nombrePropio' }}
-.se agrega la fecha y hora en el componente NAV
+pipes personalizados: (ok)
+    .se une el apellido y nombre del usuario
+        {{ element | fullName: 'nombrePropio' }}        (ok)
+    .se agrega la fecha y hora en el componente NAV     (ok)
 
-directivas
-.se agregan directivas personalizadas para poner en negrita y pintar la cabecera
- del listado de usuarios y de estudiantes
+directivas: (ok) 
+    .se agregan directivas personalizadas para poner en negrita y pintar la cabecera
+     del listado de usuarios y de estudiantes   (ok)
 
-servicios
-.se agrega el servicio para proveer datos de usuarios y procedimientos asociados
-.se agrega el servicio para proveer datos de estudiantes y procedimientos asociados
+servicios: (ok)
+    .se agrega el servicio para proveer datos de usuarios y procedimientos asociados        (ok)
+    .se agrega el servicio para proveer datos de estudiantes y procedimientos asociados     (ok)
+    .se agrega el servicio para proveer datos de cursos y procedimientos asociados          (ok)
 
-rutas
-.se agregan las rutas principales en el app-routing
-.se deinen las rutas forChild en el componente dashboard
+rutas: (ok)
+    .se agregan las rutas principales en el app-routing         (ok)
+    .se deinen las rutas forChild en el componente dashboard    (ok)
 
 tests
-.loginComponent
+    .loginComponent
 
 edicion en dialogs
-.cursos
+    .cursos         (ok)
+    .usuarios       (pendiente)
+    .estudiantes    (pendiente)
+
+paginacion: (ok)
+    .usuarios       (ok)
+    .estudiantes    (ok)
+    .cursos         (ok)

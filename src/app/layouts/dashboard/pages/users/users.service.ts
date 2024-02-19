@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Role, User } from '../../../models';
+import { Pagination, Role, User } from '../../../models';
 import { Observable, delay, mergeMap, of, tap, catchError } from 'rxjs';
 import { AlertsService } from '../../../../core/services/alerts.service';
 import { HttpClient } from '@angular/common/http';
@@ -45,6 +45,14 @@ export class UsersService {
         return of([]);
       })); 
   }
+
+  paginateUsers(page: number, perPage = 5) {
+    // el get va a devolver una paginacion  
+    return this.httpClient.get<Pagination<User>>( 
+      `${environment.apiUrl}/users?_page=${page}&_per_page=${perPage}`
+    );
+  }
+
 
   getRoles(): Observable<string[]> {
     return of(ROLES_DB).pipe(delay(2000));
