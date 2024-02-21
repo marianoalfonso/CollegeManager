@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { ContadorActions } from '../../../../core/store/contador/actions';
-import { selectorContadorValue } from '../../../../core/store/contador/selectors';
+import { ContadorActions } from '../../../../core/store/contador/actions/contador.actions';
+import { selectcontadorValue } from '../../../../core/store/contador/selectors/contador.selector';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -10,17 +10,24 @@ import { Observable } from 'rxjs';
   styleUrl: './redux.component.scss'
 })
 export class ReduxComponent {
-  value$ : Observable<number>;
 
-  constructor(private store: Store) {
-    this.value$ = this.store.select(selectorContadorValue);
-  }
+  value$: Observable<number>;
 
-  incrementar(): void {
-    this.store.dispatch(ContadorActions.incrementar());
-  }
+  // // // variante apra mostrarlo en la vista
+  // value: number = 0;
 
-  decrementar(): void {
-    // this.store.dispatch(ContadorActions.decrementar());
+  constructor(
+    private store: Store) {
+      this.value$ = this.store.select(selectcontadorValue);
+
+      // // variante para mostrarlo en la vista
+      // this.store.select(selectcontadorValue).subscribe({
+      //   next: (value) => (this.value = value)
+      // })
+    }
+
+  incrementNumber(): void {
+    this.store.dispatch(ContadorActions.increase())
   }
+  
 }

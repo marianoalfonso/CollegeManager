@@ -72,6 +72,10 @@ import { adminGuard } from '../../core/guards/admin.guard';
         loadChildren: () => import('./pages/courses/courses.module').then((course) => course.CoursesModule),
       },
       {
+        path: 'redux',
+        loadChildren: () => import('./pages/redux/redux.module').then((redux) => redux.ReduxModule), 
+      },
+      {
         //dashboard/courses
         path: 'redux',
         // aplicamos lazy-load

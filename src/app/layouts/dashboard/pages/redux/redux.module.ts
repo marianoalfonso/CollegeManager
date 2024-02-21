@@ -18,7 +18,7 @@ import { SharedModule } from '../../../../shared/shared.module';
         path: '',
         component: ReduxComponent,
       }
-    ])
+    ]),
   ]
 })
 export class ReduxModule { }
