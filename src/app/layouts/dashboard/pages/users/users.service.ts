@@ -57,23 +57,18 @@ export class UsersService {
 
   // actualizar el usuario mediante edicion
   updateUser(idUser: number, payload: User) {
-    console.log('editando usuario');
-    console.log(payload);
-    console.log('firstname: ' + payload.firstName);    
-    console.log('token: ' + payload.token);
     this.loadingService.setIsLoading(true);
     return this.httpClient
       .put<User>(`${environment.apiUrl}/users/${idUser}`, { ...payload })
       .pipe(
         mergeMap(() => this.paginateUsers(1)),
-        tap(() =>{
+        tap(() => {
           this.notifier.showSuccess(
             'Usuarios',
             'usuario modificado correctamente !!'
           ),
           this.loadingService.setIsLoading(false);    
-        }
-        )
+        })
       );
   }
 

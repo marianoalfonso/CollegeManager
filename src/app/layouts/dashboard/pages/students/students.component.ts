@@ -16,7 +16,8 @@ export class StudentsComponent implements OnInit {
   constructor(
     private studentService: StudentsService,
     private loadingService: LoadingService,
-    public dialog: MatDialog) {}
+    public dialog: MatDialog
+  ) {}
 
   displayedColumns: string[] = [
     'id',
@@ -30,19 +31,20 @@ export class StudentsComponent implements OnInit {
   totalRows: number = 0;
   pageSize: number = 5;
   currentPage: number = 1;
-  
+
   onPage(ev: PageEvent) {
     this.currentPage = ev.pageIndex + 1;
-    this.studentService.paginateStudents(this.currentPage, this.pageSize).subscribe({
-      next: (paginateResult) => {
-        this.totalRows = paginateResult.items;
-        this.dataSource = paginateResult.data;
-        this.pageSize = ev.pageSize;
-        this.currentPage = this.currentPage;
-      }
-    })
+    this.studentService
+      .paginateStudents(this.currentPage, this.pageSize)
+      .subscribe({
+        next: (paginateResult) => {
+          this.totalRows = paginateResult.items;
+          this.dataSource = paginateResult.data;
+          this.pageSize = ev.pageSize;
+          this.currentPage = this.currentPage;
+        },
+      });
   }
-
 
   ngOnInit(): void {
     this.getPageData();
@@ -54,7 +56,7 @@ export class StudentsComponent implements OnInit {
     // uso el forkJoin para futuras modificaciones
     // donde deba manejar varios observables
     this.studentService.paginateStudents(this.currentPage).subscribe({
-    // this.studentService.getStudents().subscribe({
+      // this.studentService.getStudents().subscribe({
       // el value recibe un array de arrays,
       // donde el primer elemento es el array de Roles y el segundo el de Students
       next: (value) => {
@@ -69,18 +71,18 @@ export class StudentsComponent implements OnInit {
   }
 
   onStudentEdited(student: Student) {
-    this.dialog.open(StudentDialogComponent, { data: student }).
-    afterClosed().
-    subscribe({
-      next: (result) => {
-        if (result) {
-          this.studentService.updateStudent(student.id, result).
-           subscribe({
-            next: (students) => this.dataSource = students.data,
-        })
-        }
-      }
-    })
+    this.dialog
+      .open(StudentDialogComponent, { data: student })
+      .afterClosed()
+      .subscribe({
+        next: (result) => {
+          if (result) {
+            this.studentService.updateStudent(student.id, result).subscribe({
+              next: (students) => (this.dataSource = students.data),
+            });
+          }
+        },
+      });
   }
 
   // cuando reciba el formulario de usuario
@@ -100,7 +102,9 @@ export class StudentsComponent implements OnInit {
 
   onStudentDeleted(ev: Student): void {
     if (
-      confirm(`se eliminará el estudiante: ${ev.lastName}, ¿confirma la operación?`)
+      confirm(
+        `se eliminará el estudiante: ${ev.lastName}, ¿confirma la operación?`
+      )
     ) {
       this.loadingService.setIsLoading(true);
       this.studentService.deleteStudent(ev).subscribe({
@@ -113,16 +117,17 @@ export class StudentsComponent implements OnInit {
 
   // creacion de nuevo estudiante
   onStudentCreated(): void {
-    this.dialog.open(StudentDialogComponent).afterClosed().subscribe({
-      next: (result) => {
-        if(result) {
-          this.studentService.createStudent(result).subscribe({
-            next: (students) => this.dataSource = students,
-          })
-        }
-      }
-    })
+    this.dialog
+      .open(StudentDialogComponent)
+      .afterClosed()
+      .subscribe({
+        next: (result) => {
+          if (result) {
+            this.studentService.createStudent(result).subscribe({
+              next: (students) => (this.dataSource = students),
+            });
+          }
+        },
+      });
   }
-
-
 }

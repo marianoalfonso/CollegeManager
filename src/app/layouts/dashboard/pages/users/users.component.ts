@@ -104,6 +104,7 @@ export class UsersComponent implements OnInit {
     });
   }
 
+  
   onUserEdited(user: User) {
     this.dialog
       .open(UserDialogComponent, { data: user })

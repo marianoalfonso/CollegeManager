@@ -4,6 +4,7 @@ import { AlertsService } from '../../../../core/services/alerts.service';
 import { Course, Pagination, User } from '../../../models/index';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../environments/environment';
+import { LoadingService } from '../../../../core/services/loading.service';
 
 let COURSES_DB: Course[] = [];
 
@@ -12,7 +13,8 @@ export class CoursesService {
 
   constructor(
     private notifier: AlertsService,
-    private httpClient: HttpClient) {}
+    private httpClient: HttpClient,
+    private loadingService: LoadingService) {}
 
   getCourses() {
     // return of<Course[]>(COURSES_DB).pipe(delay(1000));
@@ -46,16 +48,25 @@ export class CoursesService {
     .pipe(mergeMap(() => this.getCourses()));
   }
  
-  editCourse(payload: Course) {
-    
+  // edicion de cursos
+  editCourse(idCourse: number, payload: Course) {
+    this.loadingService.setIsLoading(true);
+    return this.httpClient.put<Course>(`${environment.apiUrl}/courses/${idCourse}`, { ...payload }).
+    pipe(
+      mergeMap(() => this.paginateCourses(1)),
+      tap(() => {
+        this.notifier.showSuccess('cursos', 'curso modificado correctamente !!'),
+        this.loadingService.setIsLoading(false)
+      })
+    );
   }
 
 
-  updateCourse(id: number, payload: Course) {
-    // con MAP recorro el array hasta encontrar el id que quiero y lo actualizo
-    // si el id coincide, piso elemento, sino dejo el elemento como esta
-    COURSES_DB = COURSES_DB.map((elemento) => elemento.id === id ? {...elemento, ...payload} : elemento);
-    return this.getCourses();
-  }
+  // updateCourse(id: number, payload: Course) {
+  //   // con MAP recorro el array hasta encontrar el id que quiero y lo actualizo
+  //   // si el id coincide, piso elemento, sino dejo el elemento como esta
+  //   COURSES_DB = COURSES_DB.map((elemento) => elemento.id === id ? {...elemento, ...payload} : elemento);
+  //   return this.getCourses();
+  // }
 
 }

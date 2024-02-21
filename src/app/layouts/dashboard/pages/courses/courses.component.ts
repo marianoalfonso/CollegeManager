@@ -72,10 +72,8 @@ export class CoursesComponent {
     }).afterClosed().subscribe({
       next: (result) => {
         if (result) {
-          this.coursesService.updateCourse(course.id, result).subscribe({
-            next: (courses) => {
-              this.dataSource = courses;
-            }
+          this.coursesService.editCourse(course.id, result).subscribe({
+            next: (courses) => this.dataSource = courses.data,
           });
         }
       }
