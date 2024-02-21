@@ -8,16 +8,11 @@ import { UserDialogComponent } from './components/user-dialog/user-dialog.compon
 
 // angular material imports
 import { MatIconModule } from '@angular/material/icon';
-
-
 import { MatTableModule } from '@angular/material/table';
 import { MatFormFieldModule } from '@angular/material/form-field'; //envoltura del form
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
-
-
-
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { MY_USER_TOKEN } from '../../../../core/injection-tokens';

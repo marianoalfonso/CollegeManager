@@ -54,7 +54,6 @@ export class UsersComponent implements OnInit {
       // donde el primer elemento es el array de Roles y el segundo el de Users
       next: (value) => {
         this.roles = value[0];
-        // this.dataSource = value[1];
         const paginationResult = value[1];
         this.totalRows = paginationResult.items;
         this.dataSource = paginationResult.data;
@@ -113,7 +112,7 @@ export class UsersComponent implements OnInit {
         next: (result) => {
           if (result) {
             this.userService.updateUser(user.id, result).subscribe({
-              next: (courses) => (this.dataSource = courses),
+              next: (users) => this.dataSource = users.data,
             });
           }
         },

@@ -23,6 +23,7 @@ export class UserDialogComponent {
         email: this.fb.control('', Validators.required),
         password: this.fb.control('', Validators.required),
         role: this.fb.control('', Validators.required),
+        token: this.fb.control('')
       });
 
       if(dataEditingUser) {
@@ -31,6 +32,7 @@ export class UserDialogComponent {
     }
 
     onSave(): void {
+      console.log(this.userForm.value);
       this.dialogRef.close(this.userForm.value);
     }
 

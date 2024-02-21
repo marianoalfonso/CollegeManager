@@ -68,6 +68,21 @@ export class StudentsComponent implements OnInit {
     });
   }
 
+  onStudentEdited(student: Student) {
+    this.dialog.open(StudentDialogComponent, { data: student }).
+    afterClosed().
+    subscribe({
+      next: (result) => {
+        if (result) {
+          this.studentService.updateStudent(student.id, result).
+           subscribe({
+            next: (students) => this.dataSource = students.data,
+        })
+        }
+      }
+    })
+  }
+
   // cuando reciba el formulario de usuario
   onStudentSubmitted(ev: Student): void {
     // creamos un nuevo array para origen de la tabla de angular material

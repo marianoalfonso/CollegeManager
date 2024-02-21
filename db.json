@@ -1,49 +1,49 @@
 {
   "users": [
     {
-      "id": "1",
-      "firstName": "Neva",
+      "firstName": "Nieva",
       "lastName": "Avila",
       "email": "nevaavila@voratak.com",
       "password": "test1234",
       "role": "admin",
-      "token": "lkdinacsiudfkjgdhsfglks5432452"
+      "token": "11111111111111111111111111111111111111111111",
+      "id": "1"
     },
     {
-      "id": "2",
-      "firstName": "Betty",
+      "firstName": "Bettyc",
       "lastName": "Avery",
       "email": "bettyavery@voratak.com",
       "password": "test1234",
       "role": "user",
-      "token": "34kjhgfjhtfciyc897fy"
+      "token": "222222222222222222222222222222222222222222222",
+      "id": "2"
     },
     {
-      "id": "4",
-      "firstName": "Katheryn",
+      "firstName": "Katherynxxs",
       "lastName": "Porter",
       "email": "katherynporter@voratak.com",
       "password": "test1234",
       "role": "admin",
-      "token": "kndkancuvahs09837y09t8"
+      "token": "33333333333333333333333333333333333333333333",
+      "id": "4"
     },
     {
-      "id": "5",
       "firstName": "Lenna",
       "lastName": "Karter",
       "email": "Lennakarter@gmail.com",
       "password": "test1234",
-      "role": "user",
-      "token": "lkjhdlkjha0s873jkbflkjhfs90pa87fhgp"
+      "role": "admin",
+      "token": "444444444444444444444444444444444444444444444444444",
+      "id": "5"
     },
     {
-      "id": "6",
-      "firstName": "Laura",
+      "firstName": "Lauren",
       "lastName": "Santillan",
       "email": "laurasantillan@gmail.com",
       "password": "test1234",
       "role": "admin",
-      "token": "r0dUhHpFZJ83"
+      "token": "55555555555555555555555555555555555555555555555",
+      "id": "6"
     },
     {
       "id": "7",
@@ -52,7 +52,7 @@
       "email": "test@test.com",
       "password": "test",
       "role": "admin",
-      "token": "kYX1iyb3Y5t4YOiuzREGx7k5Zh4yugfoufo3ke1l"
+      "token": "666666666666666666666666666666666666666666666666666666"
     },
     {
       "id": "8",
@@ -60,8 +60,8 @@
       "lastName": "Nobre",
       "email": "emanuelnobre@gmail.com",
       "password": "test1234",
-      "role": "ADMIN",
-      "token": "GnIPsj0tImlr5Islc0Ft1fxucityceCn97lqsrg"
+      "role": "admin",
+      "token": "777777777777777777777777777777777777777777777777777777777"
     },
     {
       "id": "9",
@@ -69,26 +69,26 @@
       "lastName": "Brown",
       "email": "mariabrown@gmail.com",
       "password": "test1234",
-      "role": "ADMIN",
-      "token": "GnIPsj0tImlr5Islc0Ft1feCn97ldfasdlknqsrg"
+      "role": "admin",
+      "token": "888888888888888888888888888888888888888888888888888888888"
     },
     {
-      "id": "10",
-      "firstName": "Peter",
+      "firstName": "PeterX",
       "lastName": "Smith",
       "email": "petersmith@gmail.com",
       "password": "test1234",
-      "role": "ADMIN",
-      "token": "GnIPsj0tImlr5Islcdsaf0Ft1feCn97lqsrg"
+      "role": "admin",
+      "id": "10",
+      "token": "'99999999999999999999999999999999999999999999999999999'"
     }
   ],
   "students": [
     {
-      "id": "1",
       "firstName": "Mendez",
       "lastName": "Rosales",
       "email": "mendezrosales@frosnex.com",
-      "birthDate": "1975-08-11"
+      "birthDate": "1975-08-11",
+      "id": "1"
     },
     {
       "id": "2",
@@ -156,6 +156,11 @@
       "id": "6",
       "courseName": "ingles",
       "startDate": "2024-03-27"
+    },
+    {
+      "id": "4b6e",
+      "courseName": "test",
+      "startDate": "2024-02-15T03:00:00.000Z"
     }
   ]
 }
