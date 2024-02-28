@@ -1,28 +1,15 @@
 import { Injectable } from '@angular/core';
-import { Role, User } from '../../../models';
+import { Pagination, Role, User } from '../../../models';
 import { Observable, delay, mergeMap, of, tap, catchError } from 'rxjs';
 import { AlertsService } from '../../../../core/services/alerts.service';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../environments/environment';
-import { Router } from '@angular/router';
+import { LoadingService } from '../../../../core/services/loading.service';
 
 // let para poder borrar elementos
-let USERS_DB: User[] = [];
+// let USERS_DB: User[] = [];
 
 const ROLES_DB: string[] = ['admin', 'user'];
-
-// const ROLES_DB: Roles[] = [
-//   {
-//     id: 1,
-//     name: 'admin',
-//     description: 'administrador del sistema con privilegios totales',
-//   },
-//   {
-//     id: 2,
-//     name: 'user',
-//     description: 'usuario con privilegios minimos',
-//   },
-// ]
 
 // los servicios se instancian por unica vez
 // y son unicos para todas las llamadas
@@ -37,10 +24,11 @@ const ROLES_DB: string[] = ['admin', 'user'];
 // de los modulos donde usemos el servicio, esto es mejor para el lazyloading
 @Injectable()
 export class UsersService {
-
   constructor(
     private notifier: AlertsService,
-    private httpClient: HttpClient) {}
+    private httpClient: HttpClient,
+    private loadingService: LoadingService
+  ) {}
 
   // este metodo se comunica con la DB y devuelve un observable con el array de usuarios
   getUsers() {
@@ -50,13 +38,43 @@ export class UsersService {
 
     // utilizamos la llamada al servicio JSON
     //devuelve un OBJETO, no un array, debemos indicarle en el generico que devuelve un array de N
-    // return this.httpClient.get<User[]>('http://localhost:3000/users').pipe(delay(1000)); 
+    // return this.httpClient.get<User[]>('http://localhost:3000/users').pipe(delay(1000));
     return this.httpClient.get<User[]>(`${environment.apiUrl}/users`).pipe(
-      delay(1000), 
+      delay(1000),
       catchError((error) => {
         this.notifier.showError('error al recuperar los usuarios');
         return of([]);
-      })); 
+      })
+    );
+  }
+
+  paginateUsers(page: number, perPage = 5) {
+    // el get va a devolver una paginacion
+    return this.httpClient.get<Pagination<User>>(
+      `${environment.apiUrl}/users?_page=${page}&_per_page=${perPage}`
+    );
+  }
+
+  // actualizar el usuario mediante edicion
+  updateUser(idUser: number, payload: User) {
+    console.log('editando usuario');
+    console.log(payload);
+    console.log('firstname: ' + payload.firstName);    
+    console.log('token: ' + payload.token);
+    this.loadingService.setIsLoading(true);
+    return this.httpClient
+      .put<User>(`${environment.apiUrl}/users/${idUser}`, { ...payload })
+      .pipe(
+        mergeMap(() => this.paginateUsers(1)),
+        tap(() =>{
+          this.notifier.showSuccess(
+            'Usuarios',
+            'usuario modificado correctamente !!'
+          ),
+          this.loadingService.setIsLoading(false);    
+        }
+        )
+      );
   }
 
   getRoles(): Observable<string[]> {
@@ -65,7 +83,11 @@ export class UsersService {
 
   // agrego un usuario al array y devuelvo la funcion getUsers
   createUser(payload: User) {
-    return this.httpClient.post<User>(`${environment.apiUrl}/users`, { ...payload, token: this.generateString(32) })
+    return this.httpClient
+      .post<User>(`${environment.apiUrl}/users`, {
+        ...payload,
+        token: this.generateString(32),
+      })
       .pipe(mergeMap(() => this.getUsers())); //hago merge del observable devuelto por el POST on el devuelto por el GET
   }
 
@@ -77,24 +99,27 @@ export class UsersService {
     // // despues que el observable emita un valor
     // const mensaje = `usuario "${ payload.lastName }" eliminado correctamente`;
     // return this.getUsers().pipe(tap(() => this.notifier.showSuccess('usuarios', mensaje)));
-    return this.httpClient.delete<User>(`${environment.apiUrl}/users/${payload.id}`)
+    return this.httpClient
+      .delete<User>(`${environment.apiUrl}/users/${payload.id}`)
       .pipe(mergeMap(() => this.getUsers()));
   }
 
   // me devuelve un observable del tipo User
-  getUserById(id: number | string ): Observable<User | undefined> {
-    // return of(USERS_DB.find((user) => user.id == id)).pipe(delay(3000));
+  getUserById(id: number | string): Observable<User | undefined> {
     return this.httpClient.get<User>(`${environment.apiUrl}/users/${id}`);
   }
 
+  // genera una cadena random para el token
   generateString(length: number) {
-    const setCaracteres: string ='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const setCaracteres: string =
+      'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     let result = '';
     const charactersLength = setCaracteres.length;
-    for ( let i = 0; i < length; i++ ) {
-        result += setCaracteres.charAt(Math.floor(Math.random() * charactersLength));
+    for (let i = 0; i < length; i++) {
+      result += setCaracteres.charAt(
+        Math.floor(Math.random() * charactersLength)
+      );
     }
     return result;
-}
-
+  }
 }

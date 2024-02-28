@@ -32,3 +32,15 @@ export interface LoginData {
     email: string | null;
     password: string | null;
 }
+
+// <T> indicamos que recibimos un argumento generico
+export interface Pagination<T> {
+    first: number;
+    prev: number | null;
+    next: number | null;
+    last: number;
+    pages: number;
+    items: number;
+    // indicamos que la data va a ser del tipo generico recibido como argumento
+    data: T[];
+}

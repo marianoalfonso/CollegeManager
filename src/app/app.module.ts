@@ -1,4 +1,4 @@
-import {LOCALE_ID, NgModule } from '@angular/core';
+import {LOCALE_ID, NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -14,6 +14,9 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { MatTableModule } from '@angular/material/table';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { HttpClientModule } from '@angular/common/http';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { appReducers } from './core/store/contador';
 
 // referenciamos la funcion y le pasamos la importacion de la region
 registerLocaleData(es);
@@ -31,6 +34,8 @@ registerLocaleData(es);
     MatTableModule,
     // manejo de API
     HttpClientModule,
+    StoreModule.forRoot(appReducers , {}),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
   ],
   providers: [
     {

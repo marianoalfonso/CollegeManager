@@ -8,14 +8,6 @@ import { LoadingService } from '../../core/services/loading.service';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 
-// const mockUser = {
-//   id: 15,
-//   firstName: 'nombre',
-//   lastName: 'apellido',
-//   email: 'test@test.com',
-//   password: 'test1234',
-//   role: 'admin'
-// }
 
 @Injectable({
   providedIn: 'root'

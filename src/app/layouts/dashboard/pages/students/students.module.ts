@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { StudentsComponent } from './students.component';
-import { StudentFormComponent } from './components/student-form/student-form.component';
 
 // angular material imports
 import { MatTableModule } from '@angular/material/table';
@@ -23,7 +22,6 @@ import { StudentDialogComponent } from './components/student-dialog/student-dial
 @NgModule({
   declarations: [
     StudentsComponent,
-    StudentFormComponent,
     StudentDetailComponent,
     StudentDialogComponent,
   ],

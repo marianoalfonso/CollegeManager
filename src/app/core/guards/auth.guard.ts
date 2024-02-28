@@ -5,8 +5,6 @@ import { map } from 'rxjs';
 
 export const authGuard: CanActivateFn = (route, state) => {
   
-  console.log('guard activo');
-
   const router = inject(Router);
   const authServcie = inject(AuthService);
   // verifico si existe el usuario

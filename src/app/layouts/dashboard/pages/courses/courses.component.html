@@ -1,47 +1,54 @@
 <div class="flex justify-content-end mb-3">
-  <button (click)="onCourseCreated()" mat-button>
-    agregar
-  </button>
+  <button (click)="onCourseCreated()" mat-button>agregar</button>
 </div>
 
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-
-    <!--- Note that these columns can be defined in any order.
+  <!--- Note that these columns can be defined in any order.
           The actual rendered columns are set as a property on the row definition" -->
-  
-    <!-- id Column -->
-    <ng-container matColumnDef="id">
-      <th appResaltado mat-header-cell *matHeaderCellDef> id </th>
-      <td mat-cell *matCellDef="let element"> {{ element.id }} </td>
-    </ng-container>
-  
-    <!-- courseName Column -->
-    <ng-container matColumnDef="courseName">
-      <th appResaltado mat-header-cell *matHeaderCellDef> nombre </th>
-      <td mat-cell *matCellDef="let element"> {{ element.courseName }} </td>
-    </ng-container>
 
-    <!-- fechaInicio Column -->
-    <ng-container matColumnDef="startDate">
-        <th appResaltado mat-header-cell *matHeaderCellDef> fecha inicio </th>
-        <td mat-cell *matCellDef="let element"> {{ element.startDate | date: 'dd/MM/yyyy' }} </td>
-        </ng-container>
-  
-    <!-- actions Column -->
-    <ng-container matColumnDef="actions">
-      <th appResaltado mat-header-cell *matHeaderCellDef> acciones </th>
-      <td mat-cell *matCellDef="let element">
-          <!-- <button [routerLink]="element.id" routerLinkActive="router-link-active"  color="accent" mat-icon-button> -->
-        <button (click)="onCourseDeleted(element)" mat-icon-button color="warn">
-          <mat-icon>delete</mat-icon>
-        </button>
-        <button (click)="onCourseEdited(element)" mat-icon-button color="primary">
-          <mat-icon>edit</mat-icon>
-          <!-- <button (click)="onUserDeleted(element)" mat-icon-button color="warn"> -->
-        </button>
-      </td>
-    </ng-container>
-  
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
+  <!-- id Column -->
+  <ng-container matColumnDef="id">
+    <th appResaltado mat-header-cell *matHeaderCellDef>id</th>
+    <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+  </ng-container>
+
+  <!-- courseName Column -->
+  <ng-container matColumnDef="courseName">
+    <th appResaltado mat-header-cell *matHeaderCellDef>nombre</th>
+    <td mat-cell *matCellDef="let element">{{ element.courseName }}</td>
+  </ng-container>
+
+  <!-- fechaInicio Column -->
+  <ng-container matColumnDef="startDate">
+    <th appResaltado mat-header-cell *matHeaderCellDef>fecha inicio</th>
+    <td mat-cell *matCellDef="let element">
+      {{ element.startDate | date : "dd/MM/yyyy" }}
+    </td>
+  </ng-container>
+
+  <!-- actions Column -->
+  <ng-container matColumnDef="actions">
+    <th appResaltado mat-header-cell *matHeaderCellDef>acciones</th>
+    <td mat-cell *matCellDef="let element">
+      <!-- <button [routerLink]="element.id" routerLinkActive="router-link-active"  color="accent" mat-icon-button> -->
+      <button (click)="onCourseDeleted(element)" mat-icon-button color="warn">
+        <mat-icon>delete</mat-icon>
+      </button>
+      <button (click)="onCourseEdited(element)" mat-icon-button color="primary">
+        <mat-icon>edit</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>
+
+<mat-paginator
+  (page)="onPage($event)"
+  [length]="totalRows"
+  [pageSize]="pageSize"
+  [pageSizeOptions]="[5, 10, 25, 100]"
+  aria-label="Select page"
+>
+</mat-paginator>
