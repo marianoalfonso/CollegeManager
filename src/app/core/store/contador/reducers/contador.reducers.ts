@@ -13,8 +13,18 @@ const initialState: ContadorState = {
 
 // en el reducer decidimos que hacer cuando se dispara una accion desde actions
 // en el callback, recibo el estado anterior en state, y trabajo sobre eso
-export const contadorReducer = createReducer<ContadorState>(initialState, on(ContadorActions.increase, (state) => {
-    return {
-        value: state.value + 1,
-    }
-}));
+export const contadorReducer = createReducer<ContadorState>(
+    initialState, 
+    on(ContadorActions.increase, (state) => {
+        return {
+            ...state, //para traer todas las propiedades del estado
+            value: state.value + 1,
+        }
+    }),
+    on(ContadorActions.decrease, (state, action) => {
+        return {
+            ...state, //para traer todas las propiedades del estado
+            value: state.value - action.cantidad,
+        }
+    })
+);

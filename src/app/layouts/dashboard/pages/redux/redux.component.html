@@ -1,5 +1,5 @@
 <div>
-    <button mat-icon-button>-</button>
+    <button (click)="decrementNumber()" mat-icon-button>-</button>
     <strong>{{ value$ | async }}</strong>
     <!-- variante para mostrarlo en la vista -->
     <!-- <strong>{{ value }}</strong> -->

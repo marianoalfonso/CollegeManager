@@ -30,4 +30,7 @@ export class ReduxComponent {
     this.store.dispatch(ContadorActions.increase())
   }
   
+  decrementNumber(): void {
+    this.store.dispatch(ContadorActions.decrease({ cantidad: 2 }))
+  }
 }
