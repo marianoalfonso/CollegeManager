@@ -5,6 +5,8 @@ import { EnrolmentsRoutingModule } from './enrolments-routing.module';
 import { EnrolmentsComponent } from './enrolments.component';
 import { EffectsModule } from '@ngrx/effects';
 import { EnrolmentsEffects } from './store/enrolments.effects';
+import { StoreModule } from '@ngrx/store';
+import { enrolmentsFeature } from './store/enrolments.reducer';
 
 
 @NgModule({
@@ -14,6 +16,7 @@ import { EnrolmentsEffects } from './store/enrolments.effects';
   imports: [
     CommonModule,
     EnrolmentsRoutingModule,
+    StoreModule.forFeature(enrolmentsFeature),
     EffectsModule.forFeature([EnrolmentsEffects]),
   ]
 })

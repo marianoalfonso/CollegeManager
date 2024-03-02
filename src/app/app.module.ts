@@ -17,6 +17,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { appReducers } from './core/store/store';
+import { EffectsModule } from '@ngrx/effects';
 
 // referenciamos la funcion y le pasamos la importacion de la region
 registerLocaleData(es);
@@ -37,6 +38,7 @@ registerLocaleData(es);
     //aca se define el store de redux
     StoreModule.forRoot(appReducers, {}),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
+    EffectsModule.forRoot([]),
   ],
   providers: [
     {

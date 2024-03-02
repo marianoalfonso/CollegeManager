@@ -3,7 +3,7 @@ import { User } from '../models';
 import { Router } from '@angular/router';
 import { LoginData } from '../models';
 import { AlertsService } from '../../core/services/alerts.service';
-import { Observable, delay, finalize, map, of, tap } from 'rxjs';
+import { Observable, delay, finalize, map, of, tap, catchError } from 'rxjs';
 import { LoadingService } from '../../core/services/loading.service';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
@@ -69,8 +69,9 @@ export class AuthService {
           localStorage.removeItem('token');
           return false;
         }
-      })
-    )
+      }),
+      catchError(() => of(false)) //manejamos errores (como si esta caido el servicio)
+    );
 
   }
 

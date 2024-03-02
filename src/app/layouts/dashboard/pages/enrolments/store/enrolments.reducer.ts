@@ -13,9 +13,9 @@ export const initialState: State = {
 
 export const reducer = createReducer(
   initialState,
-  on(EnrolmentsActions.loadEnrolmentss, state => state),
-  on(EnrolmentsActions.loadEnrolmentssSuccess, (state, action) => state),
-  on(EnrolmentsActions.loadEnrolmentssFailure, (state, action) => state),
+  on(EnrolmentsActions.loadEnrolments, state => state),
+  on(EnrolmentsActions.loadEnrolmentsSuccess, (state, action) => state),
+  on(EnrolmentsActions.loadEnrolmentsFailure, (state, action) => state),
 );
 
 export const enrolmentsFeature = createFeature({
