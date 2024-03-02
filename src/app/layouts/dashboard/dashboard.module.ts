@@ -22,7 +22,6 @@ import { StudentDetailComponent } from './pages/students/pages/student-detail/st
 import { adminGuard } from '../../core/guards/admin.guard';
 
 
-
 @NgModule({
   declarations: [
     DashboardComponent,

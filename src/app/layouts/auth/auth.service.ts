@@ -7,6 +7,8 @@ import { Observable, delay, finalize, map, of, tap } from 'rxjs';
 import { LoadingService } from '../../core/services/loading.service';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
+import { Store } from '@ngrx/store';
+import { authActions } from '../../core/store/auth/actions/auth.actions';
 
 
 @Injectable({
@@ -18,10 +20,12 @@ export class AuthService {
     private router: Router,
     private alertService: AlertsService,
     private loadingService: LoadingService,
-    private httpClient: HttpClient) { }
+    private httpClient: HttpClient,
+    private store: Store  //inyectamos el servicio del store de redux
+    ) { }
 
   setAuthUser(user: User): void {
-    this.authUser = user;
+    this.store.dispatch(authActions.setAuthUser({ user })); //pasamos el valor del usuario a redux
     localStorage.setItem('token', user.token);
   }
 
@@ -44,7 +48,7 @@ export class AuthService {
   }
 
   logOut(): void {
-    this.authUser = null;
+    this.store.dispatch(authActions.logout());
     this.router.navigate(['auth', 'login']);
     localStorage.removeItem('token');
   }
@@ -61,8 +65,7 @@ export class AuthService {
           this.setAuthUser(response[0]);
           return true;
         } else {
-          console.log('no encontro datos');
-          this.authUser = null;
+          this.store.dispatch(authActions.logout());
           localStorage.removeItem('token');
           return false;
         }

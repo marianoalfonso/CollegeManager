@@ -6,6 +6,6 @@ import { featureName as authFeatureName } from "./auth/reducers/auth.reducers";
 // el appReducers es un objeto que contiene todos los reducers de la aplicacion
 export const appReducers = {
     // contadorReducer
-    [contadorFeatureName]: contadorReducer,
-    [authFeatureName]: authReducer,
+    [contadorFeatureName]: contadorReducer, //nombre definido en el reducer
+    [authFeatureName]: authReducer, //nombre definido en el reducer
 };
