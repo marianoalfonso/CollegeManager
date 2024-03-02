@@ -82,6 +82,10 @@ import { adminGuard } from '../../core/guards/admin.guard';
         loadChildren: () => import('./pages/redux/redux.module').then((redux) => redux.ReduxModule),
       },
       {
+        path: 'enrolments',
+        loadChildren: () => import('./pages/enrolments/enrolments.module').then((enrolment) => enrolment.EnrolmentsModule),
+      },
+      {
         // cualquier cosa que no sea el home redirige a home
         path: '**',
         redirectTo: 'home'

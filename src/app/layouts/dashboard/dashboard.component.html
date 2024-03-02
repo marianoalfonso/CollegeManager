@@ -21,6 +21,11 @@
                 [activated]="coursesLink.isActive"
                 routerLink="courses" 
                 mat-list-item>Cursos</a>
+            <a #enrolmentsLink="routerLinkActive"
+                routerLinkActive
+                [activated]="enrolmentsLink.isActive"
+                routerLink="enrolments" 
+                mat-list-item>Inscripciones</a>
             <a (click)="logOut()" 
                 mat-list-item>Cerrar sesion</a>
         </mat-nav-list>
