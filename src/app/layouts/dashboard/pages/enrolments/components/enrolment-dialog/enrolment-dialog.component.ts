@@ -5,6 +5,7 @@ import { EnrolmentsActions } from '../../store/enrolments.actions';
 import { Observable } from 'rxjs';
 import { selectEnrolmentCourses, selectEnrolmentsStudents } from '../../store/enrolments.selectors';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-enrolment-dialog',
@@ -19,6 +20,7 @@ export class EnrolmentDialogComponent {
 
   constructor(
     private fb: FormBuilder,
+    private dialogRef: MatDialogRef<EnrolmentDialogComponent>,
     private store: Store,) {
 
       this.enrolmentForm = this.fb.group({
@@ -38,6 +40,7 @@ export class EnrolmentDialogComponent {
       this.enrolmentForm.markAllAsTouched();
     } else {
       this.store.dispatch(EnrolmentsActions.createEnrolment({ data: this.enrolmentForm.value }));
+      this.dialogRef.close();
     }
   }
 

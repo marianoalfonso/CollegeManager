@@ -54,14 +54,14 @@ export class EnrolmentsEffects {
   createEnrolment$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(EnrolmentsActions.createEnrolment),
-        concatMap(() => this.enrolmentsService.getEnrolments().pipe(
-          map((resp) => EnrolmentsActions.loadEnrolmentsSuccess({ data: resp })),
-          catchError((error) => {
-            return of(EnrolmentsActions.loadCoursesFailure({ error }))
-          })
-        ))
-    );
-  });
+      concatMap((action) => {
+        return this.enrolmentsService.createEnrolment(action.data).pipe(
+          map((respuesta) => EnrolmentsActions.createEnrolmentSuccess({ data: respuesta})),
+          catchError((error) => of(EnrolmentsActions.createEnrolmentFailure({ error })))
+        )
+      })
+    )
+  })
 
 
   constructor (

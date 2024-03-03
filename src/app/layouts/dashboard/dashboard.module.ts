@@ -11,8 +11,6 @@ import { MatListModule } from '@angular/material/list';
 
 import { UsersModule } from './pages/users/users.module';
 import { StudentsModule } from './pages/students/students.module';
-import { RxjsExampleModule } from './pages/rxjs-example/rxjs-example.module';
-import { RxjsIntroduccionModule } from './pages/rxjs-introduccion/rxjs-introduccion.module';
 import { RouterModule } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
 import { StudentsComponent } from './pages/students/students.component';
@@ -37,8 +35,6 @@ import { adminGuard } from '../../core/guards/admin.guard';
     MatIconModule,
     MatListModule,
     
-    RxjsExampleModule,
-    RxjsIntroduccionModule,
     
     RouterModule.forChild([
       {
@@ -69,17 +65,6 @@ import { adminGuard } from '../../core/guards/admin.guard';
         // aplicamos lazy-load
         // es una Promesa, del archivo de modulos queremos estraer la clase CoursessModule
         loadChildren: () => import('./pages/courses/courses.module').then((course) => course.CoursesModule),
-      },
-      {
-        path: 'redux',
-        loadChildren: () => import('./pages/redux/redux.module').then((redux) => redux.ReduxModule), 
-      },
-      {
-        //dashboard/courses
-        path: 'redux',
-        // aplicamos lazy-load
-        // es una Promesa, del archivo de modulos queremos estraer la clase CoursessModule
-        loadChildren: () => import('./pages/redux/redux.module').then((redux) => redux.ReduxModule),
       },
       {
         path: 'enrolments',
