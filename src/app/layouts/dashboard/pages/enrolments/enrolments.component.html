@@ -1,7 +1,11 @@
-<div **ngIf="isLoading$ | async; else notLoading">
+<div *ngIf="isLoading$ | async; else notLoading">
     loading ...
 </div>
 
 <ng-template #notLoading>
+    <button (click)="createEnrolment()" mat-flat-button type="button" color="primary">suscribir curso </button>
+
+
     <pre>{{ enrolments$ | async | json }}</pre>
 </ng-template>
+  

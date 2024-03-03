@@ -52,3 +52,8 @@ export interface Enrolment {
     student?: Student;
     course?: Course;
 }
+
+export interface EnrolmentData {
+    studentId: string | number;
+    courseId: string | number;
+}

@@ -32,6 +32,10 @@ export class StudentsService {
         })
       );
   }
+  
+  getAllStudents(): Observable<Student[]> {
+    return this.httpClient.get<Student[]>(`${environment.apiUrl}/students`)
+  }
 
   paginateStudents(page: number, perPage = 5) {
     return this.httpClient.get<Pagination<Student>>(

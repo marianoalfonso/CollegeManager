@@ -168,6 +168,11 @@
       "id": "1",
       "courseId": "6",
       "studentId": "3"
+    },
+    {
+      "id": "ec73",
+      "studentId": "3",
+      "courseId": "4"
     }
   ]
 }
