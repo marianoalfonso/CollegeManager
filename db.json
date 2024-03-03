@@ -50,7 +50,7 @@
       "firstName": "test",
       "lastName": "test",
       "email": "test@test.com",
-      "password": "test",
+      "password": "test1234",
       "role": "admin",
       "token": "666666666666666666666666666666666666666666666666666666"
     },
@@ -128,9 +128,9 @@
   ],
   "courses": [
     {
-      "id": "1",
-      "courseName": "algoritmos I",
-      "startDate": "2024-03-11"
+      "courseName": "algoritmos I plus",
+      "startDate": "2024-03-11",
+      "id": "1"
     },
     {
       "id": "2",
@@ -161,6 +161,33 @@
       "id": "4b6e",
       "courseName": "test",
       "startDate": "2024-02-15T03:00:00.000Z"
+    }
+  ],
+  "enrolments": [
+    {
+      "id": "1",
+      "courseId": "6",
+      "studentId": "3"
+    },
+    {
+      "id": "ec73",
+      "studentId": "3",
+      "courseId": "4"
+    },
+    {
+      "id": "c046",
+      "studentId": "1",
+      "courseId": "6"
+    },
+    {
+      "id": "29e4",
+      "studentId": "3",
+      "courseId": "4"
+    },
+    {
+      "id": "cc19",
+      "studentId": "1",
+      "courseId": "1"
     }
   ]
 }

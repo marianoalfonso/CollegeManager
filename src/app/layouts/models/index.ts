@@ -44,3 +44,16 @@ export interface Pagination<T> {
     // indicamos que la data va a ser del tipo generico recibido como argumento
     data: T[];
 }
+
+export interface Enrolment {
+    id: string | number;
+    userId: string | number;
+    productId: string | number;
+    student?: Student;
+    course?: Course;
+}
+
+export interface EnrolmentData {
+    studentId: string | number;
+    courseId: string | number;
+}

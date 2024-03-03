@@ -5,10 +5,11 @@ import { Course, Pagination, User } from '../../../models/index';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../environments/environment';
 import { LoadingService } from '../../../../core/services/loading.service';
+import { Observable } from 'rxjs';
 
 let COURSES_DB: Course[] = [];
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class CoursesService {
 
   constructor(
@@ -24,6 +25,10 @@ export class CoursesService {
         this.notifier.showError('error al recuperar los cursos');
         return of([]);
       }));
+  }
+
+  getAllCourses(): Observable<Course[]> {
+    return this.httpClient.get<Course[]>(`${environment.apiUrl}/courses`);
   }
 
   paginateCourses(page: number, perPage = 5) {

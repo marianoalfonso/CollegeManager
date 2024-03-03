@@ -21,6 +21,11 @@
                 [activated]="coursesLink.isActive"
                 routerLink="courses" 
                 mat-list-item>Cursos</a>
+            <a #enrolmentsLink="routerLinkActive"
+                routerLinkActive
+                [activated]="enrolmentsLink.isActive"
+                routerLink="enrolments" 
+                mat-list-item>Inscripciones</a>
             <a (click)="logOut()" 
                 mat-list-item>Cerrar sesion</a>
         </mat-nav-list>
@@ -33,16 +38,14 @@
                 (click)="drawer.toggle()">
                 <mat-icon>menu</mat-icon>
             </button>
-            <span>My App</span>
-            <span class="example-spacer"></span>
-            <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
-                <mat-icon>favorite</mat-icon>
-            </button>
-            <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
-                <mat-icon>share</mat-icon>
-            </button>
-
-            {{ today | date: 'short'}}
+            <span>College Manager</span>
+            <span style="flex: 1"></span>
+            <div *ngIf="authUser$ | async; let user">
+                <p class="m-0">{{ user.firstName }}</p>
+                <p class="m-0">{{ user.email }}</p>
+                <p class="m-0">{{ today | date: 'short' }}</p>
+            </div>
+            
 
         </mat-toolbar>
         <!-- toolbar en el contenido del dashboard (end)-->
