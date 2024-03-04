@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { LoadingService } from '../../../../../../core/services/loading.service';
+import { User } from '../../../../../models';
 import { UsersService } from '../../users.service';
 
 @Component({
@@ -9,6 +10,8 @@ import { UsersService } from '../../users.service';
   styleUrl: './user-detail.component.scss'
 })
 export class UserDetailComponent {
+
+  usuario: User | undefined;
 
   constructor(
       private route: ActivatedRoute, 
@@ -19,6 +22,7 @@ export class UserDetailComponent {
     this.usersService.getUserById(this.route.snapshot.params['id']).subscribe({
       next: (findedUser) => {
         console.log(findedUser);
+        this.usuario = findedUser;
       },
       complete: () => this.loadingService.setIsLoading(false)
     })

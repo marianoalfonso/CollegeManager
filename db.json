@@ -10,7 +10,7 @@
       "id": "1"
     },
     {
-      "firstName": "Bettyc",
+      "firstName": "Bettycv",
       "lastName": "Avery",
       "email": "bettyavery@voratak.com",
       "password": "test1234",
@@ -188,6 +188,16 @@
       "id": "cc19",
       "studentId": "1",
       "courseId": "1"
+    },
+    {
+      "id": "9b03",
+      "studentId": "5",
+      "courseId": "1"
+    },
+    {
+      "id": "29d8",
+      "studentId": "4",
+      "courseId": "4"
     }
   ]
 }
