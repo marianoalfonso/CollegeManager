@@ -1,2 +1,10 @@
-<p>pagina donde se muestra el detalle del estudiante</p>
-<img src="../../../../../../../assets/img/estudiantes.png" alt="imagen de estudiantes">
+<h2>detalle del estudiante</h2>
+<!-- <img src="../../../../../../../assets/img/estudiantes.png" alt="imagen de estudiantes"> -->
+
+<div *ngIf="estudiante">
+    <h4>id:  {{ estudiante.id }} </h4>
+    <h4>apellido: {{ estudiante.lastName }} </h4>
+    <h4>nombre: {{ estudiante.firstName }} </h4>
+    <h4>email: {{ estudiante.email }} </h4>
+    <h4>f.nacimiento: {{ estudiante.birthDate }} </h4>
+</div>

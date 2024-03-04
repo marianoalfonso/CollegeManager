@@ -47,8 +47,8 @@ export interface Pagination<T> {
 
 export interface Enrolment {
     id: string | number;
-    userId: string | number;
-    productId: string | number;
+    studentId: string | number;
+    courseId: string | number;
     student?: Student;
     course?: Course;
 }

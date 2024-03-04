@@ -40,7 +40,7 @@ export class EnrolmentDialogComponent {
       this.enrolmentForm.markAllAsTouched();
     } else {
       this.store.dispatch(EnrolmentsActions.createEnrolment({ data: this.enrolmentForm.value }));
-      this.dialogRef.close();
+      // this.dialogRef.close();
     }
   }
 
